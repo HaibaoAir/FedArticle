@@ -39,6 +39,10 @@ INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/caption/caption.sty
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/caption/caption.sty
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/caption/caption3.sty
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/caption/caption3.sty
+INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/graphics/rotating.sty
+INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/graphics/rotating.sty
+INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
+INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/booktabs/booktabs.sty
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/booktabs/booktabs.sty
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/hyperref/hyperref.sty
@@ -114,8 +118,6 @@ INPUT ./algorithm.sty
 INPUT algorithm.sty
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/float/float.sty
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/float/float.sty
-INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
-INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/base/ifthen.sty
 INPUT ./algorithmic.sty
 INPUT algorithmic.sty
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/tools/calc.sty
@@ -330,6 +332,7 @@ INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/omlptm.fd
 INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/omlptm.fd
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmr7t.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmri7t.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT c:/Program Files/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map
@@ -342,23 +345,27 @@ INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmri7t.vf
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmr7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmr8c.tfm
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf
 INPUT ./figures/figure_21.png
 INPUT ./figures/figure_21.png
 INPUT ./figures/figure_21.png
 INPUT ./figures/figure_21.png
 INPUT ./figures/figure_21.png
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmro7t.tfm
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmro7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmro8r.tfm
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmri7t.tfm
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmri7t.vf
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmri8r.tfm
 INPUT ./figures/figure_17.png
 INPUT ./figures/figure_17.png
 INPUT ./figures/figure_17.png
@@ -394,72 +401,95 @@ INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/courier/pcrro7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/courier/pcrro8r.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmbi7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmbi8r.tfm
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_62_A.png
-INPUT ./figures/figure_62_A.png
-INPUT ./figures/figure_62_A.png
-INPUT ./figures/figure_62_A.png
-INPUT ./figures/figure_62_A.png
+INPUT ./figures/figure_38.png
+INPUT ./figures/figure_38.png
+INPUT ./figures/figure_38.png
+INPUT ./figures/figure_38.png
+INPUT ./figures/figure_38.png
+INPUT ./figures/figure_39.png
+INPUT ./figures/figure_39.png
+INPUT ./figures/figure_39.png
+INPUT ./figures/figure_39.png
+INPUT ./figures/figure_39.png
+INPUT ./figures/figure_60_A.png
+INPUT ./figures/figure_60_A.png
+INPUT ./figures/figure_60_A.png
+INPUT ./figures/figure_60_A.png
+INPUT ./figures/figure_60_A.png
+INPUT ./figures/figure_60_B.png
+INPUT ./figures/figure_60_B.png
+INPUT ./figures/figure_60_B.png
+INPUT ./figures/figure_60_B.png
+INPUT ./figures/figure_60_B.png
 INPUT ./figures/figure_62_B.png
 INPUT ./figures/figure_62_B.png
 INPUT ./figures/figure_62_B.png
 INPUT ./figures/figure_62_B.png
 INPUT ./figures/figure_62_B.png
-INPUT ./figures/figure_62_C.png
-INPUT ./figures/figure_62_C.png
-INPUT ./figures/figure_62_C.png
-INPUT ./figures/figure_62_C.png
-INPUT ./figures/figure_62_C.png
-INPUT ./figures/figure_63_A.png
-INPUT ./figures/figure_63_A.png
-INPUT ./figures/figure_63_A.png
-INPUT ./figures/figure_63_A.png
-INPUT ./figures/figure_63_A.png
+INPUT ./figures/figure_71_B.png
+INPUT ./figures/figure_71_B.png
+INPUT ./figures/figure_71_B.png
+INPUT ./figures/figure_71_B.png
+INPUT ./figures/figure_71_B.png
 INPUT ./figures/figure_63_B.png
 INPUT ./figures/figure_63_B.png
 INPUT ./figures/figure_63_B.png
 INPUT ./figures/figure_63_B.png
 INPUT ./figures/figure_63_B.png
-INPUT ./figures/figure_63_C.png
-INPUT ./figures/figure_63_C.png
-INPUT ./figures/figure_63_C.png
-INPUT ./figures/figure_63_C.png
-INPUT ./figures/figure_63_C.png
-INPUT ./figures/figure_64_A.png
-INPUT ./figures/figure_64_A.png
-INPUT ./figures/figure_64_A.png
-INPUT ./figures/figure_64_A.png
-INPUT ./figures/figure_64_A.png
+INPUT ./figures/figure_72_B.png
+INPUT ./figures/figure_72_B.png
+INPUT ./figures/figure_72_B.png
+INPUT ./figures/figure_72_B.png
+INPUT ./figures/figure_72_B.png
 INPUT ./figures/figure_64_B.png
 INPUT ./figures/figure_64_B.png
 INPUT ./figures/figure_64_B.png
 INPUT ./figures/figure_64_B.png
 INPUT ./figures/figure_64_B.png
-INPUT ./figures/figure_64_C.png
-INPUT ./figures/figure_64_C.png
-INPUT ./figures/figure_64_C.png
-INPUT ./figures/figure_64_C.png
-INPUT ./figures/figure_64_C.png
-INPUT ./figures/figure_65_A.png
-INPUT ./figures/figure_65_A.png
-INPUT ./figures/figure_65_A.png
-INPUT ./figures/figure_65_A.png
-INPUT ./figures/figure_65_A.png
+INPUT ./figures/figure_73_B.png
+INPUT ./figures/figure_73_B.png
+INPUT ./figures/figure_73_B.png
+INPUT ./figures/figure_73_B.png
+INPUT ./figures/figure_73_B.png
 INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_65_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_66_B.png
+INPUT ./figures/figure_65_A.png
+INPUT ./figures/figure_65_A.png
+INPUT ./figures/figure_65_A.png
+INPUT ./figures/figure_65_A.png
+INPUT ./figures/figure_65_A.png
 INPUT ./figures/figure_65_B.png
 INPUT ./figures/figure_65_B.png
 INPUT ./figures/figure_65_B.png
@@ -478,158 +508,68 @@ INPUT ./figures/figure_66_B.png
 INPUT ./figures/figure_66_B.png
 INPUT ./figures/figure_66_B.png
 INPUT ./figures/figure_66_B.png
-INPUT ./figures/figure_66_B.png
 INPUT ./figures/figure_66_C.png
 INPUT ./figures/figure_66_C.png
 INPUT ./figures/figure_66_C.png
 INPUT ./figures/figure_66_C.png
 INPUT ./figures/figure_66_C.png
-INPUT ./figures/figure_71_A.png
-INPUT ./figures/figure_71_A.png
-INPUT ./figures/figure_71_A.png
-INPUT ./figures/figure_71_A.png
-INPUT ./figures/figure_71_A.png
-INPUT ./figures/figure_71_B.png
-INPUT ./figures/figure_71_B.png
-INPUT ./figures/figure_71_B.png
-INPUT ./figures/figure_71_B.png
-INPUT ./figures/figure_71_B.png
-INPUT ./figures/figure_71_C.png
-INPUT ./figures/figure_71_C.png
-INPUT ./figures/figure_71_C.png
-INPUT ./figures/figure_71_C.png
-INPUT ./figures/figure_71_C.png
-INPUT ./figures/figure_72_A.png
-INPUT ./figures/figure_72_A.png
-INPUT ./figures/figure_72_A.png
-INPUT ./figures/figure_72_A.png
-INPUT ./figures/figure_72_A.png
-INPUT ./figures/figure_72_B.png
-INPUT ./figures/figure_72_B.png
-INPUT ./figures/figure_72_B.png
-INPUT ./figures/figure_72_B.png
-INPUT ./figures/figure_72_B.png
-INPUT ./figures/figure_72_C.png
-INPUT ./figures/figure_72_C.png
-INPUT ./figures/figure_72_C.png
-INPUT ./figures/figure_72_C.png
-INPUT ./figures/figure_72_C.png
-INPUT ./figures/figure_73_A.png
-INPUT ./figures/figure_73_A.png
-INPUT ./figures/figure_73_A.png
-INPUT ./figures/figure_73_A.png
-INPUT ./figures/figure_73_A.png
-INPUT ./figures/figure_73_B.png
-INPUT ./figures/figure_73_B.png
-INPUT ./figures/figure_73_B.png
-INPUT ./figures/figure_73_B.png
-INPUT ./figures/figure_73_B.png
-INPUT ./figures/figure_73_C.png
-INPUT ./figures/figure_73_C.png
-INPUT ./figures/figure_73_C.png
-INPUT ./figures/figure_73_C.png
-INPUT ./figures/figure_73_C.png
-INPUT ./figures/figure_74_A.png
-INPUT ./figures/figure_74_A.png
-INPUT ./figures/figure_74_A.png
-INPUT ./figures/figure_74_A.png
-INPUT ./figures/figure_74_A.png
-INPUT ./figures/figure_74_B.png
-INPUT ./figures/figure_74_B.png
-INPUT ./figures/figure_74_B.png
-INPUT ./figures/figure_74_B.png
-INPUT ./figures/figure_74_B.png
-INPUT ./figures/figure_74_C.png
-INPUT ./figures/figure_74_C.png
-INPUT ./figures/figure_74_C.png
-INPUT ./figures/figure_74_C.png
-INPUT ./figures/figure_74_C.png
-INPUT ./figures/figure_75_A.png
-INPUT ./figures/figure_75_A.png
-INPUT ./figures/figure_75_A.png
-INPUT ./figures/figure_75_A.png
-INPUT ./figures/figure_75_A.png
-INPUT ./figures/figure_75_B.png
-INPUT ./figures/figure_75_B.png
-INPUT ./figures/figure_75_B.png
-INPUT ./figures/figure_75_B.png
-INPUT ./figures/figure_75_B.png
-INPUT ./figures/figure_75_C.png
-INPUT ./figures/figure_75_C.png
-INPUT ./figures/figure_75_C.png
-INPUT ./figures/figure_75_C.png
-INPUT ./figures/figure_75_C.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_59_A.png
-INPUT ./figures/figure_59_A.png
-INPUT ./figures/figure_59_A.png
-INPUT ./figures/figure_59_A.png
-INPUT ./figures/figure_59_A.png
-INPUT ./figures/figure_59_B.png
-INPUT ./figures/figure_59_B.png
-INPUT ./figures/figure_59_B.png
-INPUT ./figures/figure_59_B.png
-INPUT ./figures/figure_59_B.png
-INPUT ./figures/figure_59_C.png
-INPUT ./figures/figure_59_C.png
-INPUT ./figures/figure_59_C.png
-INPUT ./figures/figure_59_C.png
-INPUT ./figures/figure_59_C.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_A.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_B.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_55_C.png
-INPUT ./figures/figure_59_A.png
-INPUT ./figures/figure_59_A.png
-INPUT ./figures/figure_59_A.png
-INPUT ./figures/figure_59_A.png
-INPUT ./figures/figure_59_B.png
-INPUT ./figures/figure_59_B.png
-INPUT ./figures/figure_59_B.png
-INPUT ./figures/figure_59_B.png
-INPUT ./figures/figure_59_C.png
-INPUT ./figures/figure_59_C.png
-INPUT ./figures/figure_59_C.png
-INPUT ./figures/figure_59_C.png
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm
-INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
-INPUT c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmr8c.tfm
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/courier/pcrb7t.vf
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/courier/pcrb8r.tfm
+INPUT ./figures/figure_74_A.png
+INPUT ./figures/figure_74_A.png
+INPUT ./figures/figure_74_A.png
+INPUT ./figures/figure_74_A.png
+INPUT ./figures/figure_74_A.png
+INPUT ./figures/figure_74_B.png
+INPUT ./figures/figure_74_B.png
+INPUT ./figures/figure_74_B.png
+INPUT ./figures/figure_74_B.png
+INPUT ./figures/figure_74_B.png
+INPUT ./figures/figure_74_C.png
+INPUT ./figures/figure_74_C.png
+INPUT ./figures/figure_74_C.png
+INPUT ./figures/figure_74_C.png
+INPUT ./figures/figure_74_C.png
+INPUT ./figures/figure_75_A.png
+INPUT ./figures/figure_75_A.png
+INPUT ./figures/figure_75_A.png
+INPUT ./figures/figure_75_A.png
+INPUT ./figures/figure_75_A.png
+INPUT ./figures/figure_75_B.png
+INPUT ./figures/figure_75_B.png
+INPUT ./figures/figure_75_B.png
+INPUT ./figures/figure_75_B.png
+INPUT ./figures/figure_75_B.png
+INPUT ./figures/figure_75_C.png
+INPUT ./figures/figure_75_C.png
+INPUT ./figures/figure_75_C.png
+INPUT ./figures/figure_75_C.png
+INPUT ./figures/figure_75_C.png
+INPUT ./figures/figure_55_B.png
+INPUT ./figures/figure_55_B.png
+INPUT ./figures/figure_55_B.png
+INPUT ./figures/figure_55_B.png
+INPUT ./figures/figure_55_B.png
+INPUT ./figures/figure_80.png
+INPUT ./figures/figure_80.png
+INPUT ./figures/figure_80.png
+INPUT ./figures/figure_80.png
+INPUT ./figures/figure_80.png
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/courier/pcrb7t.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmb7t.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/courier/pcrr7t.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti10.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti7.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmti7.tfm
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
-INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmr8c.vf
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/courier/pcrb7t.vf
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/courier/pcrb8r.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmb7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/courier/pcrr7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt10.tfm
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/public/cm/cmtt8.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmrc7t.tfm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/vf/adobe/times/ptmrc7t.vf
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
@@ -655,6 +595,7 @@ INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb
@@ -665,10 +606,12 @@ INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmext
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb
+INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb
 INPUT c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb

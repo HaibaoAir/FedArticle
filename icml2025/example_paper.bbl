@@ -1,4 +1,4 @@
-\begin{thebibliography}{8}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -9,10 +9,35 @@
 Author, N.~N.
 \newblock Suppressed for anonymity, 2021.
 
+\bibitem[Ding et~al.(2020)Ding, Fang, and Huang]{ding2020optimal}
+Ding, N., Fang, Z., and Huang, J.
+\newblock Optimal contract design for efficient federated learning with multi-dimensional private information.
+\newblock \emph{IEEE Journal on Selected Areas in Communications}, 39\penalty0 (1):\penalty0 186--200, 2020.
+
 \bibitem[Duda et~al.(2000)Duda, Hart, and Stork]{DudaHart2nd}
 Duda, R.~O., Hart, P.~E., and Stork, D.~G.
 \newblock \emph{Pattern Classification}.
 \newblock John Wiley and Sons, 2nd edition, 2000.
+
+\bibitem[Fang et~al.(2021)Fang, Wang, Xu, Yang, and Quek]{fang2021computing}
+Fang, M., Wang, X., Xu, C., Yang, H.~H., and Quek, T.~Q.
+\newblock Computing-aided update for information freshness in the internet of things.
+\newblock In \emph{IEEE INFOCOM 2021-IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS)}, pp.\  1--7. IEEE, 2021.
+
+\bibitem[Huang et~al.(2024)Huang, Wu, Sun, Ma, and Chen]{huang2024collaboration}
+Huang, G., Wu, Q., Sun, P., Ma, Q., and Chen, X.
+\newblock Collaboration in federated learning with differential privacy: A stackelberg game analysis.
+\newblock \emph{IEEE Transactions on Parallel and Distributed Systems}, 2024.
+
+\bibitem[Jiao et~al.(2020)Jiao, Wang, Niyato, Lin, and Kim]{jiao2020toward}
+Jiao, Y., Wang, P., Niyato, D., Lin, B., and Kim, D.~I.
+\newblock Toward an automated auction framework for wireless federated learning services market.
+\newblock \emph{IEEE Transactions on Mobile Computing}, 20\penalty0 (10):\penalty0 3034--3048, 2020.
+
+\bibitem[Kang et~al.(2019)Kang, Xiong, Niyato, Xie, and Zhang]{kang2019incentive}
+Kang, J., Xiong, Z., Niyato, D., Xie, S., and Zhang, J.
+\newblock Incentive mechanism for reliable federated learning: A joint optimization approach to combining reputation and contract theory.
+\newblock \emph{IEEE Internet of Things Journal}, 6\penalty0 (6):\penalty0 10700--10714, 2019.
 
 \bibitem[Kearns(1989)]{kearns89}
 Kearns, M.~J.
@@ -23,6 +48,11 @@ Kearns, M.~J.
 Langley, P.
 \newblock Crafting papers on machine learning.
 \newblock In Langley, P. (ed.), \emph{Proceedings of the 17th International Conference on Machine Learning (ICML 2000)}, pp.\  1207--1216, Stanford, CA, 2000. Morgan Kaufmann.
+
+\bibitem[Lim et~al.(2020)Lim, Xiong, Miao, Niyato, Yang, Leung, and Poor]{lim2020hierarchical}
+Lim, W. Y.~B., Xiong, Z., Miao, C., Niyato, D., Yang, Q., Leung, C., and Poor, H.~V.
+\newblock Hierarchical incentive mechanism design for federated machine learning in mobile networks.
+\newblock \emph{IEEE Internet of Things Journal}, 7\penalty0 (10):\penalty0 9575--9588, 2020.
 
 \bibitem[Michalski et~al.(1983)Michalski, Carbonell, and Mitchell]{MachineLearningI}
 Michalski, R.~S., Carbonell, J.~G., and Mitchell, T.~M. (eds.).
@@ -43,5 +73,45 @@ Newell, A. and Rosenbloom, P.~S.
 Samuel, A.~L.
 \newblock Some studies in machine learning using the game of checkers.
 \newblock \emph{IBM Journal of Research and Development}, 3\penalty0 (3):\penalty0 211--229, 1959.
+
+\bibitem[Tripathi \& Modiano(2021)Tripathi and Modiano]{tripathi2021age}
+Tripathi, V. and Modiano, E.
+\newblock Age debt: A general framework for minimizing age of information.
+\newblock In \emph{IEEE INFOCOM 2021-IEEE Conference on Computer Communications Workshops (INFOCOM WKSHPS)}, pp.\  1--6. IEEE, 2021.
+
+\bibitem[Wang et~al.(2019)Wang, Tuor, Salonidis, Leung, Makaya, He, and Chan]{wang2019adaptive}
+Wang, S., Tuor, T., Salonidis, T., Leung, K.~K., Makaya, C., He, T., and Chan, K.
+\newblock Adaptive federated learning in resource constrained edge computing systems.
+\newblock \emph{IEEE journal on selected areas in communications}, 37\penalty0 (6):\penalty0 1205--1221, 2019.
+
+\bibitem[Wang \& Duan(2019)Wang and Duan]{wang2019dynamic}
+Wang, X. and Duan, L.
+\newblock Dynamic pricing for controlling age of information.
+\newblock In \emph{2019 IEEE International Symposium on Information Theory (ISIT)}, pp.\  962--966. IEEE, 2019.
+
+\bibitem[Wang et~al.(2021)Wang, Gao, and Huang]{wang2021taming}
+Wang, Z., Gao, L., and Huang, J.
+\newblock Taming time-varying information asymmetry in fresh status acquisition.
+\newblock In \emph{IEEE INFOCOM 2021-IEEE Conference on Computer Communications}, pp.\  1--10. IEEE, 2021.
+
+\bibitem[Wu et~al.(2023)Wu, Xiao, Wu, Xu, Zhou, and Sun]{wu2023towards}
+Wu, C., Xiao, M., Wu, J., Xu, Y., Zhou, J., and Sun, H.
+\newblock Towards federated learning on fresh datasets.
+\newblock In \emph{2023 IEEE 20th International Conference on Mobile Ad Hoc and Smart Systems (MASS)}, pp.\  320--328. IEEE, 2023.
+
+\bibitem[Xiao et~al.(2023)Xiao, Xu, Zhou, Wu, Zhang, and Zheng]{xiao2023aoi}
+Xiao, M., Xu, Y., Zhou, J., Wu, J., Zhang, S., and Zheng, J.
+\newblock Aoi-aware incentive mechanism for mobile crowdsensing using stackelberg game.
+\newblock In \emph{IEEE INFOCOM 2023-IEEE Conference on Computer Communications}, pp.\  1--10. IEEE, 2023.
+
+\bibitem[Xu et~al.(2024)Xu, Xiao, Wu, Wu, Zhou, and Sun]{xu2024age}
+Xu, Y., Xiao, M.-J., Wu, C., Wu, J., Zhou, J.-R., and Sun, H.
+\newblock Age-of-information-aware federated learning.
+\newblock \emph{Journal of Computer Science and Technology}, 39\penalty0 (3):\penalty0 637--653, 2024.
+
+\bibitem[Zhang et~al.(2022)Zhang, Ma, and Chen]{zhang2022enabling}
+Zhang, N., Ma, Q., and Chen, X.
+\newblock Enabling long-term cooperation in cross-silo federated learning: A repeated game perspective.
+\newblock \emph{IEEE Transactions on Mobile Computing}, 22\penalty0 (7):\penalty0 3910--3924, 2022.
 
 \end{thebibliography}

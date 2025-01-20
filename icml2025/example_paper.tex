@@ -6,6 +6,8 @@
 \usepackage{microtype}
 \usepackage{graphicx}
 \usepackage{subcaption}
+\usepackage{caption}
+\usepackage{rotating}
 \usepackage{booktabs} % for professional tables
 
 % hyperref makes hyperlinks in the resulting PDF.
@@ -132,75 +134,107 @@ With the development of Internet of Things(IoT), many end devices are generating
 Due to the growing storage and computing power, it becomes more appealing to store data locally and push more compution function to them.
 It motivates the application of federated learning, which supports local storage and local training on each device without violating their privacy.
 
-As shown in Fig.1, a federated learning system comprises a central server and a large number of clients(i.e. end devices).
-The central server maintains a global model while each client owns local statistic.
-During each iteration, the clients download global model from the central server and makes local updates on their private data. Then the central server will aggregate the updated models from the clients and generate a new global model.
+A federated learning system comprises a parameter server and a large number of clients(i.e. end devices).
+The server maintains a global model while each client owns local statistic.
+During each iteration, clients download global model from the central server and makes local updates on their private data. Then the server will aggregate the updated models from the clients and generate a new global model.
 The training process will terminate when the accuracy of global model has reached the preset threshold.
-During the process, since the clients share not their private data but the trained local model with the central server, the federated learning system can protect clients' privacy efficiently.
+During the process, since clients share not their private data but the trained local model with the server, the federated learning system can protect clients' privacy efficiently.
 
-Despite its advantage in enabling collaborating learning while protecting data privacy, it still faces some key challenges.
-The first challenge is design of incentive mechanism.
-In FL model training, the clients usually consume massive amount of resources, including computing capacity, communication bandwidth and battery charge.
-Considering excessive resources expenditure, clients would be reluctant to participate in FL model training without sufficient economic compensation.
-Therefore, the central server needs to encourage clients to contribute their data and resources for the FL model training by offering sufficient payment. 
-There are plenty of works focusing on the design of incentive mechanism in FL, varing from game theory [1], [2] to contract theory [3] and acution theory[4].
-However, these works don't consider the scenarios of dynamic data stream. In reality, these clients(or end devices) can generate new data continuously.
-In this case, design of incentive mechanism for scenarios where clients own static local data can not be applied directly in scenarios where clients with dynamic data stream.
+Despite various advantages in enabling edge computing while protecting data privacy, it still faces two bottlenecks:
+1) \textit{Staleness of Data:} In most existing works, clients are assumed to hold a static dataset and use the same dataset to train local model over the time horizon.
+But in reality, there are many highly time-sensitive tasks with streaming data. That is, data are generated continuously and data valuation largely depends on timeliness of data \cite{xiao2023aoi}.
+Under this circumstance, outdated data used for training may deteriorate model parameters and reduce model service quality.
+2) \textit{Incentive Mechanism:} Incentive mechanism is attached great importance for stimulting clients to participate the training task. That's because clients consume various resources including computing capacity, communication bandwidth and battery charge while training.
+Besides, collecting fresh data frequently to meet the requirement of highly time-sensitive tasks also cause extra cost. Considering huge resource expenditure, clients may be not reluctant to provide fresh data or even reject to participate in federated learning tasks without economic compensation.
 
-The second challenge is the uncertainty caused by dynamic data stream. 
-In reality, clients may generate new data continuously. 
-For example, a smartphone owner may take pictures or send messages at any time. These new data are then stored in its internal storage.
-When participating in FL model training, continuously generated new data will arrive in real time and cause severe data shift and training uncertainty [4] compared with scenarios where clients own pre-determined static dataset.
-There are a few works studying the FL method in the scenarios with dynamic data stream. [4][5] try to manage data stream by introducing a medium buffer in order to reduce the negative impact of data uncertainty on training process. [6][7] provide the convergence guarantee in FL with dynamic data stream and model a new federated optimization problem.
-However, these works don't analyse the behaviour of central server and clients from a perspective of economy. That is, they don't take model clients and central server's reward and expenditure into account.
+Efforts have been made in incentive mechanism design ranging from game theory \cite{lim2020hierarchical} \cite{zhang2022enabling} \cite{huang2024collaboration} to auction theory \cite{jiao2020toward} and contract theory \cite{kang2019incentive} \cite{ding2020optimal}. However, most of these studies don't take into consideration the negative impact of outdated data on model performance.
+A few works have studied AoI-concerned incentive mechanisms against mobile crowdsensing \cite{xiao2023aoi} \cite{wang2021taming}. But they can't be applied in the context of federated learning directly.
+In the federated learning field, some papers discuss the AoI-concerned incentive mechanism, focusing on controlling dynamic prices or update frequency \cite{wang2019dynamic} \cite{wu2023towards}. But none of them explore to manipulate local data update by decaying stale data and collecting new data simultaneously considering value and volume of present data. 
 
-Motivated by the above discussions, in this article, we propose a new federated learning framework, FedStream. This framework is a kind of incentive mechanism for FL with dynamic data stream.  
-Specially, before each iteration, the central server first announce its FL task and total payment, then the clients choose its optimal amount of data generation.
+Motivated by the above considerations, we propose an incentive mechanism in federated learning aware of data staleness, called FedStream.
+Different from previous works, this system allows that the server coordinates with clients to manipulate their local data update in a novel scheme.
+Specifically, the server controls two variables: payment intented to encourage clients to collect new data and conservation rate intented to force clients to abandon outdated data. It targets to minimize model accuracy loss with plenty of fresh data and as low monetary payment as possible.
+For a particular client, it controls the volume of new data collected from local data stream dynamically according to the server's strategy. Before each communication round, it updates loal dataset by abandoning parts of outdated data as the server required and collecting some new data according to its own optimal strategy, then followed by local training. The objective of a client is to maximize the balance between payment and various costs.
+
+There are three key challenges in FedStream as follows.
+First, the server faces a two-variable optimization problem where greater reward incurs more fresh data for model training but increases monetary payment, while smaller conservation rate forces to abandon more stale data but decreases data volume at the same time. It's critical to minimize the server's cost by elaborately determining both of them.
+Besides, the client faces a long-term optimization problem with dynamic constraint of update strategy. How to derive the optimal strategy for a client to maximize its utility is of significance and challenging.
+Second, capturing the converged model performance before training is an important step to determine the optimal strategy of server. Intuitively, global model performance can be impacted by data volume and data staleness simultaneously. Specially, more fresh data will lead to better model performance, particularly in highly time-sensitive tasks. However, there is lack of quantitative relationship between global model performance and the freshness of data.
+Third, to derive clients' optimal strategies, they need to estimate their expected benefit before training, which depends on reward by the server and respective contributed share. However, in many real-world scenarios, the contributed share is unknown since clients cannot communicate with each other. Unknown information makes it challenging to make decision on client side.
+
+To overcome the above challenges, we first derive the convergence upper bound of FedStream for the server, which reveals the relationship between converged model performance and data staleness.
+In addition, we introduce a mean-field term, which is similar to the method adopted in [?], to estimate the unknown information for clients.
+Based on the above two approaches, the optimization problems on both server and client side can be constructed respectively.
+Then we use a Stackelberg game to model the interaction between both sides, where the server acts as a leader and clients are regarded as followers.
+Lastly, with the aid of backward reduction approach, we derive the optimal solution for this Stackelberg game.
+
+The main contributions in this paper are summarized as follows:
+\begin{itemize}
+  \item We propose a new federated learning system aware of data staleness with the local data update scheme at the core. To fit the proposed update scheme, we define a novel concept of DoS to measure the degree of data staleness. Based on the definition, we conduct convergence analysis and secure the upper bound of converged upper bound for FedStream.
+  \item On the basis of convergence upper bound, we construct the optimization problems for both the server and clients, where the server controls reward and conservation rate to minimize total cost, and clients control volume of new data to maximize their balance.
+  \item We model the interaction between the server and clients as a Stackelberg game. Under the backward reduction, we derive clients' optimal strategy with Hamilton equation. Based on this ,we dervie the server's strategy by adopting a search algorithm.
+  \item We carry out extensive experiments on two dataset: MNIST and FMNIST, to illustrate the extraordinary performance of FedStream.
+\end{itemize}
+The remainder of the paper is organized as follows: In Section 2, we introduce related work. We provide problem formulation and corresponding convergence analysis in Section 3. System model and methodology are demonstrated in Section 4 and 5 respectively. Then we conduct experiments in Section 6. The paper is concluded in Section 7.
+Proofs of theorems and remarks are moved to the Appendix.
+
+% The first challenge is design of incentive mechanism.
+% In FL model training, the clients usually consume massive amount of resources, including computing capacity, communication bandwidth and battery charge while training.
+% Considering excessive resources expenditure, clients would be reluctant to participate in FL model training without sufficient economic compensation.
+% Therefore, the central server needs to encourage clients to contribute their data and resources for the FL model training by offering sufficient payment. 
+% There are plenty of works focusing on the design of incentive mechanism in FL, varing from game theory [1], [2] to contract theory [3] and acution theory[4].
+% However, these works don't consider the scenarios of dynamic data stream. In reality, these clients(or end devices) can generate new data continuously.
+% In this case, design of incentive mechanism for scenarios where clients own static local data can not be applied directly in scenarios where clients with dynamic data stream.
+
+% The second challenge is the uncertainty caused by dynamic data stream. 
+% In reality, clients may generate new data continuously. 
+% For example, a smartphone owner may take pictures or send messages at any time. These new data are then stored in its internal storage.
+% When participating in FL model training, continuously generated new data will arrive in real time and cause severe data shift and training uncertainty [4] compared with scenarios where clients own pre-determined static dataset.
+% There are a few works studying the FL method in the scenarios with dynamic data stream. [4][5] try to manage data stream by introducing a medium buffer in order to reduce the negative impact of data uncertainty on training process. [6][7] provide the convergence guarantee in FL with dynamic data stream and model a new federated optimization problem.
+% However, these works don't analyse the behaviour of central server and clients from a perspective of economy. That is, they don't take model clients and central server's reward and expenditure into account.
 
 \section{Related Work}
 \label{Related Work}
-\subsection{Federated Learning on Incentive Mechanism}
-Incentive mechanism designed for federated learning has been widely studied in previous works.
+\subsection{Incentive Mechanism}
+Incentive mechanism designed for federated learning has been widely investigated in previous works.
 They can be assorted into three catagories:
-(1) \textbf{game theory:} [10]  proposes a hierarchical incentive mechanism based on coalitional game theory approach, where multiple workers can form various federations.
-[11] designs a novel incentive framework based on Stackelberg game to model the collaboration behaviour among server and clients in federated learning with difference privacy.
-[12] builds a incentive mechanism utilizing repeated game theory to enable long-term cooperation among participants in cross-silo federated learning.
-(2) \textbf{auction theory:} [13] adopts auction theory for wireless federated learning services market and builds a reverse auction mechanism to maximize the social welfare.
-(3) \textbf{contract theory:} [14] introduces a contract theory based incentive mechanism to stimulate workers to update data, which can balance the trade off between age of information and service latency.
-[15] presents an incentive mechanism leveraging contract theory to encourage workers with high reputation and high data quality to take part in federated learning tasks.
+(1) \textit{game theory:} 
+\cite{lim2020hierarchical}  proposes a hierarchical incentive mechanism based on coalitional game theory approach, where multiple workers can form various federations.
+\cite{zhang2022enabling} builds a incentive mechanism utilizing repeated game theory to enable long-term cooperation among participants in cross-silo federated learning.
+\cite{huang2024collaboration} designs a novel incentive framework based on Stackelberg game to model the collaboration behaviour among server and clients in federated learning with difference privacy.
+(2) \textit{auction theory:} 
+\cite{jiao2020toward} designs two auction mechanisms for the federated learning platform to maximize the social welfare of the federated learning services market.
+(3) \textit{contract theory:} 
+\cite{kang2019incentive} proposes an effective incentive mechanism combining reputation with contract theory to motivate high-reputation mobile devices with high-quality data to participate in model learning.
+\cite{ding2020optimal} presents an analytical study on the server's optimal incentive mechanism design by contract theory, in the presence of users' multi-dimensional private information.
+However, the above studies don't take into consideration the negative impact of outdated data on model performance and they can't be applied in highly time-sensitive tasks.
 
-In addition, there are some other methods to be utilized for design of incentive mechanism in federated learning.
-[16] designs an incentive mechanism based on deep reinforcement learning, in which the central server can adjust the optimal price strategy dynamically in accordance with the uncertain environment.
-[17] proposes a blockchain based incentive mechanism in hierarchical federated learning for end-edge-cloud communications, which prevents unreliable participants' disturbance and further ensure data privacy efficiently.
+\subsection{Data Staleness Optimization}
+Many efforts have been devoted to data staleness optimization.
+For example, \cite{tripathi2021age} consider the problem of minimizing age of information in general single-hop and multihop wireless networks.
+\cite{fang2021computing} devises a joint preprocessing and transmission policy to minimize the average AoI and the energy consumption at the IoT device.
+Only a few works among them study the AoI optimization with economic consideration. For example, \cite{xiao2023aoi} investigates the incentive mechanism design in MCS systems that take the freshness of collected data and social benefits into concerns.
+\cite{wang2021taming} considers a general multi-period status acquisition system, aiming to maximize the aggregate social welfare and ensure the platform freshness.
+However, they can't be applied in the context of federated learning.
+In the federated learning field, \cite{wang2019dynamic} proposes dynamic pricing for the server to offer age-dependent monetary returns and encourages clients to sample information at different rates over time.
+\cite{wu2023towards} aims to minimize the loss of global model for FL with a limited budget by determining a client selection strategy under time-sensitive scenarios.
+But none of them explore to manipulate local data update by decaying stale data and collecting new data simultaneously considering value and volume of present data. 
 
-However, the above studies only consider the scenario that each client owns a static dataset. They ignore the fact that clients can generate new data continuously.
-Thus, the incentive mechanism designed on the basis of static dataset cannot be applied to federated learning tasks against dynamic data stream directly.
-
-\subsection{Learning upon Streaming Data}
-Machine learning on streaming data faces key challenges including uncertain arrival patterns, limited storage and so on.
-To deal with the challenges, [18] proposes an online learning algorithm of strSAGA, which maintains a buffer between arrived data and training data to handle the uncertainty of data arrival patterns.
-In addition, to enhance the stability of convergence, the gradient used for model updating is computed on new data points at first and then revised by previous data points.
-However, this work doesn't extend strSAGA to distributed machine learning.
-
-The study in [19] introduces strSAGA into federated learning, which considers the features of streaming data and convergence of federated learninig at the same time.
-[20] jointly optimizes the number of local update and mini batch size to strike the trade off among accuracy, expenditure and time latency in federated learning with streaming data.
-[30] combines federated learning with online data management and computation offloading, trying to find the best model aggregation frequency and data offloading rate to promote model performance and reduce cost expenditure.
-However, all the above works neglect the expenditure and utility in the clients' side while training, which may leads to clients' reluctance to participate in federated learning task.
-
-\section{Preliminary Knowledge}
+\section{Problem Formulation}
 \subsection{Federated Learning with Data Stream}
 \begin{figure}[ht]
   \centering
   \includegraphics[width=\columnwidth]{figures/figure_21.png}
   \caption{Framework}
 \end{figure}
-We assume that there is a central server and $N$ clients in the federated learning system and they are arranged to conduct $T$ rounds in the training task. Different from the static local dataset in previous works, each client $k$ has a local data stream $\mathcal{D}_k$ which generates new data points randomly and dynamically over the time horizen.
+We assume that there is a central server and $N$ clients in the federated learning system and they are arranged to conduct $T$ rounds in the training task. Different from the static local dataset in previous works, each client $k$ has a local data stream $\mathcal{D}_k$ which generates new data points randomly and dynamically over the time horizon.
 In addition, due to the storage limit, each client maintains a buffer to store data points sampled from its data stream $\mathcal{D}_k$ and used for FL model training.
 We denote the stored data points in the buffer of client $k$ at round $t$ as $\mathcal{D}_k(t)$ and $\vert\mathcal{D}_k(t)\vert = D_k(t)$. 
 During each round, the buffer of client $k$ can be updated by decaying part of stale data points and sampling new ones from its local data stream, and then used for local model training.
 Therefore, the updating strategy of client $k$ at round $t$ can be modeled as
 \begin{equation}
   D_k(t+1) = \theta D_k(t) + \Delta_k(t),
+  \label{formulation:update}
 \end{equation}
 where $\theta \in [0,1]$ is the conservation rate of stale data points and it effects the degree of staleness. 
 Besides, $\Delta_k(t)$ is the amount of newly collected data points during round $t$.
@@ -213,7 +247,7 @@ Then, the loss function of client $k$ based on global model $w(t)$ using stored 
   F_k(w(t), \mathcal{D}_k(t)) = \frac{1}{D_k(t)} \sum_{j=1}^{D_k(t)} f(w(t), x_k^j),
 \end{equation}
 where $f(w(t), x_k^j)$ is the loss function of each data point $\{x_k^j, y_k^j\} \in \mathcal{D}_k(t)$.
-Then client $k$ updates its local model and injects noise as
+Then client $k$ updates its local model by
 \begin{equation}
   w_k(t+1) = w(t) - \eta \nabla F_k(w(t), \mathcal{D}_k(t)),
 \end{equation}
@@ -238,53 +272,62 @@ Model performance convergence analysis for FedStream is provided in this section
 In practice, it's difficult to measure the model performance of FedStream directly due to data dynamity, data heterogeneity and so on.
 To overcome the challenge, previous works have leveraged the convergence bound of the expected difference between the training loss and the optimal loss to capture the model performance.
 In this section, we adopt this method and provide a convergence upperbound for federated learning with data stream, considering the impact of data quantity, data heterogeneity and data staleness on final model performance.
-Before that, the concept of degree of staleness(DoS) for data points is introduced in Definition 1.
+Before that, the concept of degree of staleness(DoS) for data points is introduced in Definition \ref{definition:1}.
 \begin{definition}
+  \label{definition:1}
   We denote $S_k(t)$ as the degree of staleness(DoS) for client $k$'s data samples at round $t$. In FedStream, the recursive definition is provided as 
   \begin{equation}
-    S_k(t) = 
-    \begin{cases}
-      \dfrac{\theta D_k(t-1)}{D_k(t)}(S_k(t-1) + 1) + \dfrac{\Delta_k(t-1)}{D_k(t)}, & t > 0; \\
-      1, & t = 0,
-    \end{cases}
+    \resizebox{\columnwidth}{!}{$
+      S_k(t) = 
+      \begin{cases}
+        \dfrac{\theta D_k(t-1)}{D_k(t)}(S_k(t-1) + 1) + \dfrac{\Delta_k(t-1)}{D_k(t)}, & t > 0; \\
+        1, & t = 0,
+      \end{cases}
+    $}
   \end{equation}
   where $S_k(t)$ is the weighted sum of previous data points' DoS and the new data points' DoS.
-  The previous data points' DoS should be updated by adding to $1$ when stepping into the next time slot. And the new data points' DoS is set to be $1$.
+  The previous data points' DoS should be updated by adding to $1$ once stepping into the next time slot, while the new data points' DoS is set to be $1$.
 \end{definition}
 
-Then, we have the following properties:
-\begin{corollary}
-  $S_k(t)$ increases with conservation rate $\theta$ and decreases with increment $\Delta_k(t)$, which reflects the fact that less stale data samples and more fresh ones brings the reduction of DoS.
-\end{corollary}
-
-\begin{corollary}
+\begin{remark}
+  $S_k(t)$ increases with conservation rate $\theta$ and decreases with increment $\Delta_k(t)$, which reflects the fact that less stale data samples and more fresh ones contribute to DoS reduction.
+\end{remark}
+\begin{remark}
   The general formula of $S_k(t)$ can be further provided as
   \begin{equation}
     S_k(t) = \sum_{\tau=0}^{t} \frac{\theta^{t-\tau} D_k(\tau)}{D_k(t)}.    
   \end{equation}
-\end{corollary}
+\end{remark}
 
+Next, we introduce some assumptions on local loss function $F_k(w)$ which have been widely used in previous works before the presentation of convergence analysis.
 \begin{assumption}
+  \label{assumption:1}
   $F_k(w)$ is $\rho$-Lipschitz, i.e., $F_k(w) - F_k(w^{'}) \leq \rho \Vert w - w^{'} \Vert_2$.
 \end{assumption}
 \begin{assumption}
+  \label{assumption:2}
   $F_k(w)$ is $\beta$-Lipschitz smooth, i.e., $\Vert\nabla F_k(w) - \nabla F_k(w^{'})\Vert \leq \beta \Vert w-w^{'} \Vert_2$.
 \end{assumption}
 \begin{assumption}
+  \label{assumption:3}
   $F_k(w)$ is $\mu$-strong contex, i.e., $F_k(w)$ satisfies $F_k(w) - F_k(w^*) \leq \frac{1}{2\mu}\Vert\nabla F_k(w)\Vert_2^2$.
 \end{assumption}
 \begin{assumption}
+  \label{assumption:4}
   The stochastic gradient is unbiased and variance-bound, that is, $E[\nabla F_k(w(t)|D_k(t))] = \nabla F_k(w(t)|\mathcal{D}_k)$ and $E\Vert\nabla F_k(w(t)|D_k(t)) - \nabla F_k(w(t)|\mathcal{D}_k)\Vert^2 \leq \frac{\psi^2}{D_k(t)}$. 
 \end{assumption}
 \begin{assumption}
+  \label{assumption:5}
   The data heterogeneity is bounded, i.e, $\Vert \nabla F_k(w(t)|\mathcal{D}_k) - \nabla F(w(t)|D(t)\Vert \leq \delta_{k,t}$. 
 \end{assumption}
 \begin{assumption}
+  \label{assumption:6}
   The expected square norm of stochastic gradient is bounded, i.e., $E\Vert \nabla F_k(w(t)|D_k(t))\Vert^2 \leq G_k^2 + S_k(t)\sigma^2$, where $\sigma$ is the sensitivity coefficient of client $k$ to the freshness of data samples.
 \end{assumption}
 
 \begin{theorem}
-  Under Assumptions 1-6, with $\eta \leq \frac{1}{2\beta}$, $\xi \geq 2$, the convergence upperbound after $T$ rounds can be formulated as
+  \label{theorem:1}
+  Under Assumptions \ref{assumption:1}-\ref{assumption:6}, with $\eta \leq \frac{1}{2\beta}$, $\xi \geq 2$, the convergence upperbound after $T$ rounds can be formulated as
   \begin{align}
       & E[F(w(T)|D(T)) - F(w^*)] \notag \\ 
  \leq & \underbrace{\vphantom{\sum_{min}^{max}\frac{1}{2}} \kappa_1^{T} E[F(w(0)|D(0))-F(w^*)]}_{(1)} \notag \\
@@ -297,12 +340,12 @@ Then, we have the following properties:
 
 The detailed proof is provided in Appendix A.1.
 \begin{remark}
-  In the fifth term of Theorem 1, $\Omega_t$ captures the expected difference of global loss function based on the same global model $w(t)$ between total stored data points at current round $\mathcal{D}(t)$ and at previous round $\mathcal{D}(t-1)$.
+  In the fifth term of Theorem \ref{theorem:1}, $\Omega_t$ captures the expected difference of global loss function based on the same global model $w(t)$ between total stored data points at current round $\mathcal{D}(t)$ and at previous round $\mathcal{D}(t-1)$.
   Note that $\Omega_t$ is time-varying and it measures the influence of data dynamity has on model performance, and describes the generalization of global model towards new data points. 
   The more fluctuating data dynamity is, the larger the convergence bound is and the worse the global model performs. 
 \end{remark}
 \begin{remark}
-  In the fourth term of Theorem 1, $\delta_{k,t}$ captures the gradient gap between the global loss function and the local loss function of client $k$ at the round $t$. 
+  In the fourth term of Theorem \ref{theorem:1}, $\delta_{k,t}$ captures the gradient gap between the global loss function and the local loss function of client $k$ at the round $t$. 
   It measures the degree of data heterogeneity for client $k$ at round $t$. Note that due to data dynamity, $\delta_{k,t}$ is time-varying, too.
   Thus, we define $\overline{\delta_k}$ to represent the upperbound of $\delta_{k,t}$ across the time slots $t \in [0, T-1]$. The fourth term describes the impact of global data heterogeneity degree on model performance.
   According to this term, within single round $t$, the convergence bound would be reduced if a client with smaller $\overline{\delta_k}$ stores more data points for training than others.
@@ -377,7 +420,7 @@ Thus, the payment received by a client can be formulated as
   P_k(t) = \frac{\overline{\delta_k}^{-1}D_k(t)}{\sum_{i=1}^{N}\overline{\delta_i}^{-1}D_i(t)}R,
 \end{equation}
 where $\sum_{i=1}^{N} \overline{\delta_i}^{-1}D_i(t)$ can be considered as the total contribution of all clients make to model performance.
-Then, the utility function of client $k$ is constructed as the sum of gap between payment and cost over the time horizen:
+Then, the utility function of client $k$ is constructed as the sum of gap between payment and cost over the time horizon:
 \begin{equation}
   U_k(\boldsymbol{D_k}, \boldsymbol{D_{-k}}, R, \theta) = \sum_{t=0}^{T-1} \left(P_k(t) - C_k(t)\right),
 \end{equation}
@@ -427,7 +470,7 @@ In addition, in response to the problem of online uncertainty, we design an onli
 
 \subsection{Introduction of Mean Field Term}
 Before dealing with the above optimization problem, we first introduce a mean field term to estimate the total contribution of $\sum_{i=1}^{N}\overline{\delta_i}^{-1}D_i(t)$ at round $t$. 
-Noting that this term is the sum of each client's contribution. The change of client $i$ 's buffer size $D_i(t)$ will affects its contribution, and further affects the total contribution as a whole, which in turn affects the objective function of client $i$ as well as its choice of $\Delta_i(t)$ and $D_i(t)$ at round $t$. There's a close loop.
+Noting that this term is the sum of each client's contribution. The change of client $i$ 's buffer size $D_i(t)$ will affects its contribution, thereby affects the total contribution as a whole, which in turn affects the objective function of client $i$ as well as its choice of $\Delta_i(t)$ and $D_i(t)$ at round $t$. There's a close loop.
 But in reality, the total contribution keeps unknown to each client before they decide their newly sampled data size, which makes it challenging to solve the optimization problem on the clients' side. 
 Thus, we introduce a mean field term $\phi(t)$ to estimate the total contribution of $\sum_{i=1}^{N} \overline{\delta_i}^{-1}D_i(t)$ at round $t$, which can be formulated as
 \begin{equation}
@@ -454,25 +497,35 @@ Thus, we apply the Hamilton equation, a kind of optimal control method, to captu
 \begin{proposition}
   For any client $k$ at arbitray round $t$, the optimal increment $\Delta_k(t)$ is
   \begin{equation}
-    \Delta_k(t) = 
-    \begin{cases}
-      \max\left\{\frac{1}{2 \alpha_k} \sum_{\tau = t + 1}^{T - 1} \theta^{\tau - t - 1} \left(\frac{\overline{\delta_k}^{-1}R}{\phi(\tau)} - 2\beta_k D_k(\tau)\right), 0\right\}, & t \in [0, T-2]; \\
-      \displaystyle 0, & t = T-1.
-    \end{cases}
+    \resizebox{\columnwidth}{!}{$
+      \Delta_k(t) = 
+      \begin{cases}
+        \max\left\{\frac{1}{2 \alpha_k} \sum_{\tau = t + 1}^{T - 1} \theta^{\tau - t - 1} \left(\frac{\overline{\delta_k}^{-1}R}{\phi(\tau)} - 2\beta_k D_k(\tau)\right), 0\right\}, & t \in [0, T-2]; \\
+        \displaystyle 0, & t = T-1.
+      \end{cases}    
+    $}
+  \label{proposition:delta}
   \end{equation}
   Furthermore, the optimal buffer size $D_k(t)$ is
   \begin{equation}
-    D_k(t) = 
-    \begin{cases}
-      \displaystyle D_0, & t = 0; \\
-      \theta^{t} D_k(0) + \sum_{\tau = 0}^{t-1} \theta^{t-1-\tau} \Delta_k(\tau), & t \in [1, T-1].
-    \end{cases}
+    \resizebox{\columnwidth}{!}{$
+      D_k(t) = 
+      \begin{cases}
+        \displaystyle D_0, & t = 0; \\
+        \theta^{t} D_k(0) + \sum_{\tau = 0}^{t-1} \theta^{t-1-\tau} \Delta_k(\tau), & t \in [1, T-1].
+      \end{cases}
+    $}
+  \label{proposition:datasize}
   \end{equation}
 \end{proposition}
 The detailed proof is provided in Appendix A.2.
 \begin{remark}
   (30) reveals that provided the central server's payment $R$ and mean field term $\phi(t)$, the optimal increment of client $k$ at round $t$, i.e. $\Delta_k(t)$ is affected by the following buffer size of $D_k(\tau), \tau \in [t+1, \cdots, T]$, which in turn affects $D_k(\tau)$ according to (31).
   Therefore, a close loop exists between $\Delta_k(t)$ and $D_k(t)$, where greater $\delta_k(t)$ leads to greater $D_k(t)$, which in turn inhibits $\Delta_k(t)$.
+\end{remark}
+\begin{remark}
+  A stationary state exists in an infinite time horizon.
+  \label{remark:stationary state}
 \end{remark}
 
 
@@ -481,7 +534,7 @@ The detailed proof is provided in Appendix A.2.
 However, as mentioned above, it's extremely hard to derive a close-form solution of $(R, \theta)$ for the central server directly because the objective function in stage \uppercase\expandafter{\romannumeral1} is complex.
 Thus, we apply a searching algorithm to explore the optimal strategy $(R,\theta)$.
 
-\textit{Parameter Estimation:} In scenario of FL task with continuous data stream, parameters such as $\delta_{k,t}$ is time-varying over the time horizen due to the uncertain arrival pattern, hence the central server cannot predict the future information about data distribution in advance before training, which impedes the development of the optimal strategy $(R, \theta)$ for the central server.
+\textit{Parameter Estimation:} In scenario of FL task with continuous data stream, parameters such as $\delta_{k,t}$ is time-varying over the time horizon due to the uncertain arrival pattern, hence the central server cannot predict the future information about data distribution in advance before training, which impedes the development of the optimal strategy $(R, \theta)$ for the central server.
 To address this problem, we can estimate them by conducting a simple federated learning procedure, which is similar to [18][45]. Namely, the central server will conduct a light-weight training experiment with all clients and estimates $\delta_{k,t}$ using the uploaded gradient. Note that this experiment is not involved in monetary payment.
 Then the central server adopts the maximum as $\overline{\delta_k}$ and solves the optimization problem in stage \uppercase\expandafter{\romannumeral1}.
 
@@ -489,9 +542,10 @@ Then the central server adopts the maximum as $\overline{\delta_k}$ and solves t
 Ultimately, we try to estimate $\phi(t), t\in[0,\cdots,T-1]$, the mean field term introduced in section $5.1$ with fixed point algorithm.
 According to (31), $D_k(t)$ is a function of $\Delta_k(\tau), \tau \in [0,\cdots,t-1]$. By inserting (30) into (31), $D_k(t)$ is actually a function of mean field terms $\phi(t)$ and buffer size $D_k(t)$, $t \in [0, \cdots, T-1]$.
 We define this function as
-\begin{equation}
-  D_k(t) = \Psi_{k,t}(\phi(0), \phi(1), \cdots, \phi(T-1), D_k(0), D_k(1), \cdots, D_k(T-1)).
-\end{equation}
+\begin{align*}
+  D_k(t) = \Psi_{k,t}( & \phi(0), \phi(1), \cdots, \phi(T-1), \\
+                       & D_k(0), D_k(1), \cdots, D_k(T-1)).
+\end{align*}
 Furthermore, according to (26), $\phi(t)$ is a function of $D_k(t), k \in [1, \cdots, N]$ at time $t$, so it can be derived that $D_k(t)$ is a function of $D_k(t), k \in [1, \cdots, N], t \in [0, \cdots, T-1]$. That is
 \begin{align}
   D_k(t) = \Psi_{k,t} & (D_1(0), D_1(1), \cdots, D_1(T-1), \notag \\
@@ -500,7 +554,7 @@ Furthermore, according to (26), $\phi(t)$ is a function of $D_k(t), k \in [1, \c
                       & D_N(0), D_N(1), \cdots, D_N(T-1)).
 \end{align}
 For ease of reading, we denote the parameter matrix in (39) as $A$. Then we have $D_k(t) = \Psi_{k,t}(A)$.
-To summarize all data size $D_k(t)$ over the time horizen $t \in [0, \cdots, T-1]$ and $k \in [1, \cdots, N]$, we have the following vector function as
+To summarize all data size $D_k(t)$ over the time horizon $t \in [0, \cdots, T-1]$ and $k \in [1, \cdots, N]$, we have the following vector function as
 \begin{align}
   A = & \Psi(A) \notag \\
     = & (\Psi_{1, 0}(A), \Psi_{1, 1}(A), \cdots, \Psi_{1, T-1}(A) \notag \\
@@ -590,337 +644,489 @@ Based on proposition 2, we can apply fixed point algorithm to find optimal $D_k(
  \end{algorithm}
 
 \section{Experiment}
+In this section, we evaluate the performance of proposed FedStream by numerical experiments.
 \subsection{Experimental Setup}
-\subsection{Experimental Results}
-\textbf{Effect of conservation rate on server' cost:}
-In this chapter, we try to explore the effect of conservation rate $\theta$ on server' cost. Specially, we set $\theta$ as a constant and then derive the optimal behaviour of the central server's reward $R$ and each client's increment $\Delta_k(t)$.
-By adjusting $\theta$ step by step, we can observe the change of $R$ and $\Delta_k(t)$ accordingly.
-As shown in Figure(5), the central server's optimal reward $R$ decreases with $\theta$. That's because greater $\theta$ means the central server prioritizes the former data rather that recruiting new data. Therefore it will pay less reward to the clients for new data.
-For each client, it will be reluctance to collect new data when driven by less reward, as shown in figure5(b).
-However, in Figure(5)(c), we can notice that the data quantity $D_k(t)$ keeps high while increment $\Delta_k(t)$ is low, that's becasue enormous former data are reserved under the setting of high $\theta$.
-Figure 5(d) shows that high conservation rate leads to high staleness of data, which matches the definition of DoS.
+\textbf{Datasets and Models: }
+We conduct our experiments in two widely used real datasets: MNIST and FMNIST.
+The MNIST dataset contains 60,000 training samples and 10,000 test samples for handwrittern digit recognization.
+The FMNIST dataset comprises 50,000 training samples and 10,000 test samples for fashion item recognization.
+To simulate the impact of DoS in practical training, we mislabel parts of local buffer data of each client before each time slot, which is similar to the method adopted in \cite{xu2024age}. 
+The proportion of mislabeling depends on time sensitivity coefficient $\sigma$. If we set a greater $\sigma$, which corresponds to a higher time-sensitive FL task, then the proportion of mislabeling will rise and vice versa.
+Besides, to simulate the setting of local data stream $\mathcal{D}$, we assign the dataset into all clients beforehand in a IID method. During the task, each client will sample new data from local dataset to its buffer according to the optimal strategy.
+Lastly, we use CNN as the training model in our experiments, which is made up of two sets of convolution layers and max pooling layers, and then two fully-connected layers and a RELU layer.
 
-\textit{Effect of reward on server' cost:}
+\textbf{Hyperparameters Settings: }
+We consider a federated learning setting with the number of rounds $T = 20$. In each round, there are 10 clients participating in the training.
+For a particular client $k$, it holds an initial buffer data with volume $D_k(0) = 700$ by default. During training, the unit price of data collection and training is set to be $\alpha_k \sim U(10^{-4}, 10^{-3})$ and $\beta_k \sim U(5^{-6}, 5^{-5})$ respectively. Each client conducts one local update at a round with learning rate $\eta=10^{-2}$.
+In addition, the server's cost balance factor is $\gamma = 10^{-4}$, with time sensitivity coefficient of $\sigma = 1$ and strategy space of $\theta \in [0, 1]$, $R \in [0, 100]$.
+
+As for the hyperparameters of $\kappa_2, \kappa_3$ and $\kappa_4$, we take the similar method adopted in \cite{wang2019adaptive} and \cite{huang2024collaboration}, both of which estimate these values with a simple FL training procedure.
+By conducting the simple procedure, we obtain $\kappa_2 = 1$ and  $\kappa_3 = \kappa_4 = 10^{-2}$.
+% 补变旧效果
+% 补仿照超参数设置
+\subsection{Experimental Results}
+\textbf{Iteration of Mean-Field Term: }
 \begin{figure}
-	\begin{minipage}{0.33\linewidth}
+	\begin{minipage}{0.49\linewidth}
 		\vspace{3pt}
         %这个图片路径替换成你的图片路径即可使用
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_A.png}}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_38.png}}
+          % 加入对这列的图片说明
+		\centerline{$N=3, T=5$}
 	\end{minipage}
-	\begin{minipage}{0.33\linewidth}
+	\begin{minipage}{0.49\linewidth}
 		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_B.png}}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_39.png}}
+		\centerline{$N=5, T=10$}
 	\end{minipage}
-  \begin{minipage}{0.33\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_C.png}}
-	\end{minipage}
-	\caption{The effect of $R$ on data quality and quantity}
+	\caption{The iteration of $\phi$, $R, \theta$ and $\Delta$}
 \end{figure}
 
+\textbf{Effect of Client's Strategy on its Utility: }
+In this paragraph, we analyse the effect of increment strategy $\Delta_k(t)$ on clients' utility and the results are plotted in Figure \ref{fig:clients}.
+For comparison, we implement two auxiliary strategies: zero strategy and random strategy. For a particular client $k$, zero strategy means it doesn't collect any new data through the training procedure, while random strategy refers that it collects new data randomly in each time slot. Note that in order to keep comparison meaningful, the total amount of new data collected over the time horizon under random strategy is set to be roughly consistent with that under optimal strategy.
+We can find optimal strategy helps client $k$ secure the highest utility comparied with other two strategies.
+Provided clients are selfish, this indicates that each of them will follow the optimal strategy, thereby the mutually best response strategies are reached simultaneously, which meets the requirement the Nash equilibrium solution of Stage \uppercase\expandafter{\romannumeral2}.
+In addition, we can find under the same increment strategy, the client's utility $U_k$ decreases with number of clients $N$. The underlying reason is that clients expansion may intensify the competition for a fixed reward among them, thereby leads to reward reduction and utility reduction.
+\begin{figure}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_60_A.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_60_B.png}}
+	\end{minipage}
+	\caption{Comparative analysis of total increment $\sum_{t=0}^{T-1} \Delta_k(t)$ (\textbf{left}) and utility function $U_k$ (\textbf{right}) against a particular client $k$ versus number of clients $N$ across three increment strategies, including $\Delta_k(t) = 0$, optimal and random.}
+    \label{fig:clients}
+\end{figure}
+
+\textbf{Effect of Server's Strategy on Average Buffer Data: }
+In this paragraph, we study the effect of server's strategy of both reward $R$ and conservation rate $\theta$ on average buffer data from three terms: average increment $\Delta(t)$, average data size $D(t)$ and average data staleness $S(t)$. The results are depicted in Figure \ref{fig:server_increment}, \ref{fig:server_datasize} and \ref{fig:server_staleness} respectively.
+Specially, we fix the reward $R_0=61.62$ and consider four types of strategies: $\pi_1=(R_0, 0.1)$, $\pi_2=(R_0, 0.5)$, $\pi_3=(R_0, 0.7)$, $\pi_4=(R_0, 0.9)$. Besides, we also fix $\theta_0=0.3$ and consider another four strategies: $\pi_5=(30, \theta_0)$, $\pi_6=(60, \theta_0)$, $\pi_7=(100, \theta_0)$, $\pi_8=(140, \theta_0)$.
+
+According to Figure \ref{fig:server_increment}, provided a fixed $R$, $\Delta(t)$ decreases with $\theta$. The underlying realistic meaning is that the more valuable previous data are, the greater $\theta$ is set by central server to conserve previous data, thereby the less necessarily central server recruits new data.
+In contrast, given a fixed $\theta$, $\Delta(t)$ increases with $R$. That's because a greater reward can effectively stimulate clients to collect more new data for training.
+In addition, we notice that $\Delta(t)$ steps into a stationary state after several communication rounds no matter the strategy $\pi$, and then converges to $0$ before the end of training.
+The observation of stationary state is substantiated by remark \ref{remark:stationary state}, wherein it is illustrated that a stationary state exists in an dynamic circumstance where clients adopts updated method based on (\ref{formulation:update}).
+And the convergence trend to $0$ is also in line with the boundary condition proposed in (\ref{proposition:delta}).
+
+For data volume $D(t)$, as shown in Figure \ref{fig:server_datasize}, the volume of buffer data $D(t)$ increases with both $\theta$ and $R$ since greater $\theta$ means to conserve more previous data and greater $R$ means to collect more new data from local data stream.
+Besides, the stationary state of $D(t)$ keeps pace with that of $\Delta(t)$ according to (\ref{proposition:datasize}).
+
+The observation against staleness $S(t)$ is not the same as that against volume. In Figure \ref{fig:server_staleness}, we can find as $\theta$ grows, $S(t)$ soars to an unacceptable level because of rapid accumulation of deteriorated previous data. Yet it seldom effected by the change of $R$. Thus, the observation demonstrates that $S(t)$ is dominated by $\theta$ rather than $R$. It's not trivial to strike the balance between data volume and staleness by adjusting $\theta$ for a better model performance. 
+
+\begin{figure}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_62_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_71_B.png}}
+	\end{minipage}
+	\caption{Comparative analysis of increment $\Delta_k(t)$ against a particular client $k$ versus communication rounds $t$ across various value of $\theta$ ranging from $0$ to $1$ (\textbf{left}) and $R$ ranging from $0$ to $150$ (\textbf{right}).}
+  \label{fig:server_increment}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_63_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_72_B.png}}
+	\end{minipage}
+	\caption{Comparative analysis of data size $D_k(t)$ against a particular client $k$ versus communication rounds $t$ across various value of $\theta$ ranging from $0$ to $1$ (\textbf{left}) and $R$ ranging from $0$ to $150$ (\textbf{right}).}
+  \label{fig:server_datasize}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_64_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_73_B.png}}
+	\end{minipage}
+	\caption{Comparative analysis of data staleness $S_k(t)$ against a particular client $k$ versus communication rounds $t$ across various value of $\theta$ ranging from $0$ to $1$ (\textbf{left}) and $R$ ranging from $0$ to $150$ (\textbf{right}).}
+  \label{fig:server_staleness}
+\end{figure}
+
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_62_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_62_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_62_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $\theta$ on total increment}
+% \end{figure*}
+
 % \textit{Effect of initiative data on server' cost:}
-% \begin{figure}
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_63_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_63_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_63_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $\theta$ on data quantity}
+% \end{figure*}
+
+% \textit{Effect of initiative data on server' cost:}
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_64_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_64_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_64_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $\theta$ on data staleness}
+% \end{figure*}
+
+% \textit{Effect of initiative data on server' cost:}
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_71_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_71_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_71_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $R$ on total increment}
+% \end{figure*}
+
+% \textit{Effect of initiative data on server' cost:}
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_72_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_72_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_72_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $R$ on data quantity}
+% \end{figure*}
+
+% \textit{Effect of initiative data on server' cost:}
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_73_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_73_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_73_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $R$ on data staleness}
+% \end{figure*}
+
+\textbf{Effect of Server's Strategy on its Cost: }
+In this paragraph, we analyse the effect of server's strategy $(R, \theta)$ on its cost.
+Under the hyperparameters settings in experimental setup, the optimal strategy is $\pi^* = (61.62, 0.51)$.
+For comparison, we fix the optimal reward $R^*$ and consider three types of strategies: $\pi_1=(R^*, \theta^*-0.4), \pi_2=(R^*, \theta^*+0.2), \pi_3=(R^*, \theta^*+0.4)$.
+Besides, we also fix the optimal theta $\theta^*$ and consider another three types of strategies: $\pi_4=(R^* - 30), \pi_5=(R^*, \theta^*+40), \pi_6=(R^*, \theta+80)$.
+
+The effect of $\theta$ and $R$ on test accuracy and cost is shown in Figure \ref{fig:server_accuracy_theta}.
+We can find that $\pi^*$(solid line) outperforms $\pi_1, \pi_2$ and $\pi_3$(dotted line) in terms of test accuracy on the MNIST and CIFAR-10 datasets. The underlying reason is that strategy $\pi_2, \pi_3$ with improperly great $\theta$ contributes to huge but stale buffer data, while $\pi_1$ with improperly small $\theta$ contributes to fresh but tiny ones. Both of them leads to worse model performance.
+Under the same payment to clients, $\pi^*$ reach the lowest cost compared with other strategies.
+
+In addition, $\pi_5$ and $\pi_6$(dotted line) surpass the optimal strategy of $\pi^*$(solid line) with respect to test accuracy across all datasets because richer payment encourages clients to collect more fresh data, thereby enhance the model performance.
+However, $\pi^*$ still reach the lowest cost, which indicates that our proposed strategy has the ability to strike the trade-off between payment and accuracy loss simultaneously.
+The above two experiments verify the optimality of our proposed strategy.
+% 相同的R，超过了，一部分人受困于过小的数据集，另一部分人受困于过老的数据集
+% data 那一片也改成pi*
+% 变色
+
+\begin{figure}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_65_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_66_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_65_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_66_B.png}}
+	\end{minipage}
+	\caption{Comparative analysis of test accuracy (\textbf{left}) and cost (\textbf{right}) versus communication rounds $t$ across various value of $\theta$ ranging from $0$ to $1$(\textbf{top}) and $R$ ranging from $0$ to $140$(\textbf{bottom}) with CNN over MNIST. Left-Top: Test accuracy vs. Rounds, Right-Top: Cost vs. Rounds}
+  \label{fig:server_staleness}
+\end{figure}
+
+\begin{figure}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_65_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_66_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_65_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_66_B.png}}
+	\end{minipage}
+	\caption{Comparative analysis of test accuracy (\textbf{left}) and cost (\textbf{right}) versus communication rounds $t$ across various value of $\theta$ ranging from $0$ to $1$(\textbf{top}) and $R$ ranging from $0$ to $140$(\textbf{bottom}) with CNN over CIFAR-10. Left-Top: Test accuracy vs. Rounds, Right-Top: Cost vs. Rounds}
+  \label{fig:server_staleness}
+\end{figure}
+
+\begin{figure*}[htbp] % 单栏模式
+    \centering
+    % 使用 tabular 确保对齐
+    \begin{tabular}{ccc} % 定义三列布局
+        \multicolumn{1}{c}{$\sigma=0.1$(low timeliness task)} &
+        \multicolumn{1}{c}{$\sigma=0.3$(normal timeliness task)} &
+        \multicolumn{1}{c}{$\sigma=0.7$(high timeliness task)} \\ % 顶部标题行
+        
+        \includegraphics[width=0.3\linewidth]{figures/figure_65_A.png} &
+        \includegraphics[width=0.3\linewidth]{figures/figure_65_B.png} &
+        \includegraphics[width=0.3\linewidth]{figures/figure_65_C.png} \\ % 第一行图片
+        
+        \includegraphics[width=0.3\linewidth]{figures/figure_66_A.png} &
+        \includegraphics[width=0.3\linewidth]{figures/figure_66_B.png} &
+        \includegraphics[width=0.3\linewidth]{figures/figure_66_C.png} \\ % 第二行图片
+        
+        % \textit{Row 2, Col 1} &
+        % \textit{Row 2, Col 2} &
+        % \textit{Row 2, Col 3} \\ % 第二行描述
+    \end{tabular}
+    \caption{A 3×2 image matrix with column titles and aligned content.}
+    \label{fig:server_accuracy_theta}
+\end{figure*}
+
+\begin{figure*}[htbp] % 单栏模式
+  \centering
+  
+  % 使用 tabular 确保对齐
+  \begin{tabular}{ccc} % 定义三列布局
+      \multicolumn{1}{c}{$\sigma=0.1$(low timeliness task)} &
+      \multicolumn{1}{c}{$\sigma=0.3$(normal timeliness task)} &
+      \multicolumn{1}{c}{$\sigma=0.7$(high timeliness task)} \\ % 顶部标题行
+      
+      \includegraphics[width=0.3\linewidth]{figures/figure_74_A.png} &
+      \includegraphics[width=0.3\linewidth]{figures/figure_74_B.png} &
+      \includegraphics[width=0.3\linewidth]{figures/figure_74_C.png} \\ % 第一行图片
+      
+      \includegraphics[width=0.3\linewidth]{figures/figure_75_A.png} &
+      \includegraphics[width=0.3\linewidth]{figures/figure_75_B.png} &
+      \includegraphics[width=0.3\linewidth]{figures/figure_75_C.png} \\ % 第二行图片
+      
+      % \textit{Row 2, Col 1} &
+      % \textit{Row 2, Col 2} &
+      % \textit{Row 2, Col 3} \\ % 第二行描述
+  \end{tabular}
+  
+  \caption{A 3×2 image matrix with column titles and aligned content.}
+  \label{fig:server_accuracy_reward}
+\end{figure*}
+
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_65_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_65_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_65_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $\theta$ on model performance}
+% \end{figure*}
+
+% \textit{Effect of initiative data on server' cost:}
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_66_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_66_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_66_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $\theta$ on cost}
+% \end{figure*}
+
+% \textit{Effect of initiative data on server' cost:}
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_74_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_74_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_74_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $R$ on model performance}
+% \end{figure*}
+
+% \textit{Effect of initiative data on server' cost:}
+% \begin{figure*}
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+%     \includegraphics[width=\textwidth]{figures/figure_75_A.png}
+%     \caption{$\sigma=0.1$}
+% 	\end{subfigure}
+%   \quad
+% 	\begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_75_B.png}
+%     \caption{$\sigma=0.3$}
+% 	\end{subfigure}
+%   \quad
+%   \begin{subfigure}{0.31\textwidth}
+% 		\centering
+% 		\includegraphics[width=\textwidth]{figures/figure_75_C.png}
+%     \caption{$\sigma=0.7$}
+% 	\end{subfigure}
+% 	\caption{The effect of $R$ on cost}
+% \end{figure*}
+
+\textbf{Effect of Hyperparameters: }
+In this paragraph, we explore the result of effect of hyperparameters such as time-sensitive coefficient $\sigma$ and initial volume of data $D(0)$ on exprements.
+
+For generalization, we set three task modes: low time sensitivity, normal sensitivity and high sensitivity.
+The low time sensitivity mode usually corresponds to weak-dynamic scenarios where the data distribution is stable, such as long-term agriculture analysis or chronic disease analysis, while the high time sensitivity mode corresponds to strong-dynamic scenarios where the data distribution is unstable, such as real-time personalized recommendation and smart transporation.  
+To simulate the above three modes in the experiments, we set the time sensitivity coefficient of $\sigma$ as $0.1, 0.3$ and $0.7$ respectively.
+The optimal strategies under various $\sigma$ are shown in Figure \ref{fig:hyperparam}. As $\sigma$ increases, the optimal reward $R$ rises with optimal conservation rate $\theta$ drops.
+It matches the intution that when facing tasks with higher time sensitivity, the value of previous data decrease. Server need to guide clients to abandon previous data as well as to collect new data in time.
+This illustrates that our proposed strategy can be applied in various different scenarios.
+
+Next, we exhibite the effect of initial data size $D_k(0)$ on data volume.
+There is a key question about \textit{whether the volume of data keeps dropping along with communication rounds}. It seems elusive from the perspective of intution.
+For comparison, We sampe three initial data volume: $D^1(0)=50$, $D^2(0)=100$ and $D^3(0)=700$. 
+The results is shown in Figure \ref{fig:hyperparam}. We can observe that $D(0)$ only makes differneces on a few rounds at the begining of training, then they converge to the same stationary state and drop synchronously.
+From the aspect of mathematics, stationary state doesn't depend on $D(0)$ as demonstrated in remark \ref{remark:stationary state}. 
+Therefore, the answer to the above question is that the trend of curve of data volumn banks on $D(0)$ and stationary state at the same time.
+If $D(0)$ is greater than stationary state, then $D(t)$ keeps rising before reaching the stationary state, and vice versa.
+
+\begin{figure}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_B.png}}
+	\end{minipage}
+	\begin{minipage}{0.49\linewidth}
+		\centerline{\includegraphics[width=\textwidth]{figures/figure_80.png}}
+	\end{minipage}
+	\caption{Comparative analysis of increment $\Delta_k(t)$ against a particular client $k$ versus communication rounds $t$ across various value of $\theta$ ranging from $0$ to $1$ (\textbf{left}) and $R$ ranging from $0$ to $100$ (\textbf{right}).}
+  \label{fig:hyperparam}
+\end{figure}
+
+% \begin{figure*}
+% 	\begin{minipage}{0.32\linewidth}
+% 		\vspace{3pt}
+%         %这个图片路径替换成你的图片路径即可使用
+% 		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_A.png}}
+% 	\end{minipage}
+% 	\begin{minipage}{0.32\linewidth}
+% 		\vspace{3pt}
+% 		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_B.png}}
+% 	\end{minipage}
+%   \begin{minipage}{0.32\linewidth}
+% 		\vspace{3pt}
+% 		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_C.png}}
+% 	\end{minipage}
+%   \qquad
 % 	\begin{minipage}{0.33\linewidth}
 % 		\vspace{3pt}
 %         %这个图片路径替换成你的图片路径即可使用
-% 		\centerline{\includegraphics[width=\textwidth]{figures/figure_57_A.png}}
+% 		\centerline{\includegraphics[width=\textwidth]{figures/figure_59_A.png}}
 % 	\end{minipage}
 % 	\begin{minipage}{0.33\linewidth}
 % 		\vspace{3pt}
-% 		\centerline{\includegraphics[width=\textwidth]{figures/figure_57_B.png}}
+% 		\centerline{\includegraphics[width=\textwidth]{figures/figure_59_B.png}}
 % 	\end{minipage}
 %   \begin{minipage}{0.33\linewidth}
 % 		\vspace{3pt}
-% 		\centerline{\includegraphics[width=\textwidth]{figures/figure_57_C.png}}
-% 	\end{minipage}
-% 	\caption{The effect of $R$ on model performance}
-% \end{figure}
+% 		\centerline{\includegraphics[width=\textwidth]{figures/figure_59_C.png}}
+% 	\end{minipage}  
+% 	\caption{The effect of $D_k(0)$ on data quality and quantity}
+% \end{figure*}
 
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_62_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_62_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_62_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $\theta$ on total increment}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_63_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_63_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_63_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $\theta$ on data quantity}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_64_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_64_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_64_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $\theta$ on data staleness}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_65_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_65_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_65_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $\theta$ on model performance}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_66_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_66_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_66_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $\theta$ on cost}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_71_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_71_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_71_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $R$ on total increment}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_72_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_72_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_72_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $R$ on data quantity}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_73_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_73_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_73_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $R$ on data staleness}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_74_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_74_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_74_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $R$ on model performance}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-    \includegraphics[width=\textwidth]{figures/figure_75_A.png}
-    \caption{$\sigma=0.1$}
-	\end{subfigure}
-  \quad
-	\begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_75_B.png}
-    \caption{$\sigma=0.3$}
-	\end{subfigure}
-  \quad
-  \begin{subfigure}{0.31\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{figures/figure_75_C.png}
-    \caption{$\sigma=0.7$}
-	\end{subfigure}
-	\caption{The effect of $R$ on cost}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-        %这个图片路径替换成你的图片路径即可使用
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_A.png}}
-	\end{minipage}
-	\begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_B.png}}
-	\end{minipage}
-  \begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_C.png}}
-	\end{minipage}
-  \qquad
-	\begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-        %这个图片路径替换成你的图片路径即可使用
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_59_A.png}}
-	\end{minipage}
-	\begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_59_B.png}}
-	\end{minipage}
-  \begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_59_C.png}}
-	\end{minipage}  
-	\caption{The effect of $D_k(0)$ on data quality and quantity}
-\end{figure}
-
-\textit{Effect of initiative data on server' cost:}
-\begin{figure}
-	\begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-        %这个图片路径替换成你的图片路径即可使用
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_A.png}}
-	\end{minipage}
-	\begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_B.png}}
-	\end{minipage}
-  \begin{minipage}{0.32\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_55_C.png}}
-	\end{minipage}
-  \qquad
-	\begin{minipage}{0.33\linewidth}
-		\vspace{3pt}
-        %这个图片路径替换成你的图片路径即可使用
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_59_A.png}}
-	\end{minipage}
-	\begin{minipage}{0.33\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_59_B.png}}
-	\end{minipage}
-  \begin{minipage}{0.33\linewidth}
-		\vspace{3pt}
-		\centerline{\includegraphics[width=\textwidth]{figures/figure_59_C.png}}
-	\end{minipage}  
-	\caption{The effect of $D_k(0)$ on data quality and quantity}
-\end{figure}
-
-
+\newpage
 \section{Electronic Submission}
 \label{submission}
 
