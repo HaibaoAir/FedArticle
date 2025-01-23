@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.3)  20 JAN 2025 17:26
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.11.3)  23 JAN 2025 10:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -636,20 +636,7 @@ File: ot1ptm.fd 2001/06/04 font definitions for OT1/ptm.
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 \l__color_backend_stack_int=\count345
 \l__pdf_internal_box=\box74
-) (./example_paper.aux
-
-LaTeX Warning: Label `fig:server_staleness' multiply defined.
-
-
-LaTeX Warning: Label `fig:server_staleness@cref' multiply defined.
-
-
-LaTeX Warning: Label `fig:server_staleness' multiply defined.
-
-
-LaTeX Warning: Label `fig:server_staleness@cref' multiply defined.
-
-)
+) (./example_paper.aux)
 \openout1 = `example_paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 62.
@@ -759,112 +746,81 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 173.
- (c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
+
+LaTeX Font Info:    Trying to load font information for TS1+ptm on input line 175.
+(c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/ts1ptm.fd
 File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
 )
-Underfull \vbox (badness 7468) has occurred while \output is active []
-
-
-
-
-Underfull \vbox (badness 2096) has occurred while \output is active []
-
-
 
 [2]
 <figures/figure_21.png, id=79, 1373.13pt x 694.84593pt>
 File: figures/figure_21.png Graphic file (type png)
 <use figures/figure_21.png>
-Package pdftex.def Info: figures/figure_21.png  used on input line 227.
+Package pdftex.def Info: figures/figure_21.png  used on input line 214.
 (pdftex.def)             Requested size: 234.8775pt x 118.8538pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
 
 
 
 
 [3 <./figures/figure_21.png>]
-Underfull \hbox (badness 1742) in paragraph at lines 309--310
-[]\OT1/ptm/b/n/10 (+20) Assumption 3.5. []$\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 (+20) is $\OML/cmm/m/it/10 ^^L$\OT1/ptm/m/n/10 (+20) -Lipschitz smooth, i.e.,
+
+
+Underfull \hbox (badness 1675) in paragraph at lines 296--297
+[]$\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 (+20) is $\OML/cmm/m/it/10 ^^L$\OT1/ptm/m/n/10 (+20) -Lipschitz smooth, i.e., $\OMS/cmsy/m/n/10 kr\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 ) \OMS/cmsy/m/n/10 ^^@
  []
 
 
-Underfull \hbox (badness 1231) in paragraph at lines 317--318
-\OT1/ptm/m/n/10 (+20) and variance-bound, that is, $\OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OMS/cmsy/m/n/10 r\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 D[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 ))] =
+Underfull \hbox (badness 2393) in paragraph at lines 297--298
+[]$\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 (+20) is $\OML/cmm/m/it/10 ^^V$\OT1/ptm/m/n/10 (+20) -strong con-tex, i.e., $\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 (+20) sat-is-fies
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 317--318
+Underfull \hbox (badness 10000) in paragraph at lines 298--299
+\OT1/ptm/m/n/10 (+20) bounded, that is, $\OML/cmm/m/it/10 E\OT1/cmr/m/n/10 [\OMS/cmsy/m/n/10 r\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 D[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 ))] =
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 298--299
 \OMS/cmsy/m/n/10 r\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 jD[]\OT1/cmr/m/n/10 )$ \OT1/ptm/m/n/10 (+20) and $\OML/cmm/m/it/10 E\OMS/cmsy/m/n/10 kr\OML/cmm/m/it/10 F[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 w\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )\OMS/cmsy/m/n/10 j\OML/cmm/m/it/10 D[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )) \OMS/cmsy/m/n/10 ^^@
  []
 
 
-
-
-Overfull \hbox (95.38197pt too wide) detected at line 335
+Overfull \hbox (15.30577pt too wide) detected at line 310
 []
  []
 
 
 
 [4]
-<figures/figure_17.png, id=136, 653.94313pt x 244.41313pt>
+<figures/figure_17.png, id=139, 653.94313pt x 244.41313pt>
 File: figures/figure_17.png Graphic file (type png)
 <use figures/figure_17.png>
-Package pdftex.def Info: figures/figure_17.png  used on input line 361.
+Package pdftex.def Info: figures/figure_17.png  used on input line 334.
 (pdftex.def)             Requested size: 234.8775pt x 87.78352pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 378--383
-[]\OT1/ptm/m/n/10 (+20) For ease of demon-stra-tion, we de-fine $[] \OT1/cmr/m/n/10 =
- []
+Underfull \vbox (badness 1009) has occurred while \output is active []
 
 
-Underfull \hbox (badness 5217) in paragraph at lines 378--383
-\OMS/cmsy/m/n/10 f\OML/cmm/m/it/10 D[]\OT1/cmr/m/n/10 (0)\OML/cmm/m/it/10 ; D[]\OT1/cmr/m/n/10 (1)\OML/cmm/m/it/10 ; []  ; D[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 T \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1)\OMS/cmsy/m/n/10 g$ \OT1/ptm/m/n/10 (+20) and it's the de-ci-
- []
-
-
-
-
-Overfull \hbox (179.27852pt too wide) detected at line 395
-[][][]\OML/cmm/m/it/10 U\OT1/cmr/m/n/10 ([]\OML/cmm/m/it/10 ; R; ^^R\OT1/cmr/m/n/10 ) = [] [] \OML/cmm/m/it/10 ;
- []
-
-
-
-[5 <./figures/figure_17.png>]
-LaTeX Font Info:    Trying to load font information for OMS+ptm on input line 427.
- (c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/omsptm.fd
-File: omsptm.fd 
-)
-LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 427.
 
 
 Package amsmath Warning: Foreign command \atop;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 433.
+(amsmath)                 on input line 390.
 
 
 
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
+[5 <./figures/figure_17.png>]
 
 
 
 [6]
-Overfull \hbox (7.97499pt too wide) detected at line 491
-[][][][][]
- []
-
-
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[7]
-LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 575.
+LaTeX Font Info:    Trying to load font information for OT1+pcr on input line 515.
  (c:/Program Files/texlive/2024/texmf-dist/tex/latex/psnfss/ot1pcr.fd
 File: ot1pcr.fd 2001/06/04 font definitions for OT1/pcr.
 )
@@ -873,314 +829,169 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Underfull \hbox (badness 4913) in paragraph at lines 579--581
+Underfull \hbox (badness 4913) in paragraph at lines 519--521
 [] []\OT1/ptm/b/n/10 (+20) Initialize: $\OML/cmm/m/it/10 D[]\OT1/cmr/m/n/10 (\OML/cmm/m/it/10 t\OT1/cmr/m/n/10 )\OML/cmm/m/it/10 ; t \OMS/cmsy/m/n/10 2 \OT1/cmr/m/n/10 [0\OML/cmm/m/it/10 ; []  ; T \OMS/cmsy/m/n/10 ^^@ \OT1/cmr/m/n/10 1]\OML/cmm/m/it/10 ; k \OMS/cmsy/m/n/10 2
  []
 
 LaTeX Font Info:    Font shape `OT1/pcr/m/it' in size <10> not available
-(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 601.
+(Font)              Font shape `OT1/pcr/m/sl' tried instead on input line 541.
 
 
 
 
-[8]
-<figures/figure_38.png, id=207, 481.8pt x 361.35pt>
+[7]
+<figures/figure_38.png, id=235, 481.8pt x 361.35pt>
 File: figures/figure_38.png Graphic file (type png)
 <use figures/figure_38.png>
-Package pdftex.def Info: figures/figure_38.png  used on input line 673.
+Package pdftex.def Info: figures/figure_38.png  used on input line 613.
 (pdftex.def)             Requested size: 115.09126pt x 86.31775pt.
-<figures/figure_39.png, id=208, 481.8pt x 361.35pt>
+<figures/figure_39.png, id=236, 481.8pt x 361.35pt>
 File: figures/figure_39.png Graphic file (type png)
 <use figures/figure_39.png>
-Package pdftex.def Info: figures/figure_39.png  used on input line 679.
+Package pdftex.def Info: figures/figure_39.png  used on input line 619.
 (pdftex.def)             Requested size: 115.09126pt x 86.31775pt.
-<figures/figure_60_A.png, id=210, 445.665pt x 330.10828pt>
+<figures/figure_60_A.png, id=238, 445.665pt x 330.10828pt>
 File: figures/figure_60_A.png Graphic file (type png)
 <use figures/figure_60_A.png>
-Package pdftex.def Info: figures/figure_60_A.png  used on input line 693.
+Package pdftex.def Info: figures/figure_60_A.png  used on input line 633.
 (pdftex.def)             Requested size: 115.09126pt x 85.24686pt.
-<figures/figure_60_B.png, id=211, 473.14265pt x 347.42297pt>
+<figures/figure_60_B.png, id=239, 473.14265pt x 347.42297pt>
 File: figures/figure_60_B.png Graphic file (type png)
 <use figures/figure_60_B.png>
-Package pdftex.def Info: figures/figure_60_B.png  used on input line 696.
+Package pdftex.def Info: figures/figure_60_B.png  used on input line 636.
 (pdftex.def)             Requested size: 115.09126pt x 84.50708pt.
 
 
 
 
-[9 <./figures/figure_38.png> <./figures/figure_39.png> <./figures/figure_60_A.png> <./figures/figure_60_B.png>]
-<figures/figure_62_B.png, id=243, 445.28859pt x 345.91734pt>
+[8 <./figures/figure_38.png> <./figures/figure_39.png> <./figures/figure_60_A.png> <./figures/figure_60_B.png>]
+<figures/figure_62_B.png, id=271, 445.28859pt x 345.91734pt>
 File: figures/figure_62_B.png Graphic file (type png)
 <use figures/figure_62_B.png>
-Package pdftex.def Info: figures/figure_62_B.png  used on input line 719.
+Package pdftex.def Info: figures/figure_62_B.png  used on input line 659.
 (pdftex.def)             Requested size: 115.09126pt x 89.40855pt.
-<figures/figure_71_B.png, id=244, 445.28859pt x 339.14203pt>
+<figures/figure_71_B.png, id=272, 445.28859pt x 339.14203pt>
 File: figures/figure_71_B.png Graphic file (type png)
 <use figures/figure_71_B.png>
-Package pdftex.def Info: figures/figure_71_B.png  used on input line 722.
+Package pdftex.def Info: figures/figure_71_B.png  used on input line 662.
 (pdftex.def)             Requested size: 115.09126pt x 87.65735pt.
-<figures/figure_63_B.png, id=245, 445.28859pt x 345.91734pt>
+<figures/figure_63_B.png, id=273, 445.28859pt x 345.91734pt>
 File: figures/figure_63_B.png Graphic file (type png)
 <use figures/figure_63_B.png>
-Package pdftex.def Info: figures/figure_63_B.png  used on input line 730.
+Package pdftex.def Info: figures/figure_63_B.png  used on input line 670.
 (pdftex.def)             Requested size: 115.09126pt x 89.40855pt.
-<figures/figure_72_B.png, id=246, 445.28859pt x 345.91734pt>
+<figures/figure_72_B.png, id=274, 445.28859pt x 345.91734pt>
 File: figures/figure_72_B.png Graphic file (type png)
 <use figures/figure_72_B.png>
-Package pdftex.def Info: figures/figure_72_B.png  used on input line 733.
+Package pdftex.def Info: figures/figure_72_B.png  used on input line 673.
 (pdftex.def)             Requested size: 115.09126pt x 89.40855pt.
-<figures/figure_64_B.png, id=247, 435.87843pt x 345.91734pt>
+<figures/figure_64_B.png, id=275, 435.87843pt x 345.91734pt>
 File: figures/figure_64_B.png Graphic file (type png)
 <use figures/figure_64_B.png>
-Package pdftex.def Info: figures/figure_64_B.png  used on input line 741.
+Package pdftex.def Info: figures/figure_64_B.png  used on input line 681.
 (pdftex.def)             Requested size: 115.09126pt x 91.33511pt.
-<figures/figure_73_B.png, id=248, 435.87843pt x 345.91734pt>
+<figures/figure_73_B.png, id=276, 435.87843pt x 345.91734pt>
 File: figures/figure_73_B.png Graphic file (type png)
 <use figures/figure_73_B.png>
-Package pdftex.def Info: figures/figure_73_B.png  used on input line 744.
+Package pdftex.def Info: figures/figure_73_B.png  used on input line 684.
 (pdftex.def)             Requested size: 115.09126pt x 91.33511pt.
 
 
-<figures/figure_65_B.png, id=250, 440.39531pt x 339.14203pt>
+<figures/figure_65_B.png, id=279, 440.39531pt x 339.14203pt>
 File: figures/figure_65_B.png Graphic file (type png)
 <use figures/figure_65_B.png>
-Package pdftex.def Info: figures/figure_65_B.png  used on input line 900.
+Package pdftex.def Info: figures/figure_65_B.png  used on input line 707.
 (pdftex.def)             Requested size: 115.09126pt x 88.63023pt.
-<figures/figure_66_B.png, id=251, 433.62pt x 316.18124pt>
+<figures/figure_66_B.png, id=280, 433.62pt x 316.18124pt>
 File: figures/figure_66_B.png Graphic file (type png)
 <use figures/figure_66_B.png>
-Package pdftex.def Info: figures/figure_66_B.png  used on input line 903.
+Package pdftex.def Info: figures/figure_66_B.png  used on input line 710.
 (pdftex.def)             Requested size: 115.09126pt x 83.9179pt.
-File: figures/figure_65_B.png Graphic file (type png)
-<use figures/figure_65_B.png>
-Package pdftex.def Info: figures/figure_65_B.png  used on input line 906.
-(pdftex.def)             Requested size: 115.09126pt x 88.63023pt.
-File: figures/figure_66_B.png Graphic file (type png)
-<use figures/figure_66_B.png>
-Package pdftex.def Info: figures/figure_66_B.png  used on input line 909.
-(pdftex.def)             Requested size: 115.09126pt x 83.9179pt.
-File: figures/figure_65_B.png Graphic file (type png)
-<use figures/figure_65_B.png>
-Package pdftex.def Info: figures/figure_65_B.png  used on input line 917.
-(pdftex.def)             Requested size: 115.09126pt x 88.63023pt.
-File: figures/figure_66_B.png Graphic file (type png)
-<use figures/figure_66_B.png>
-Package pdftex.def Info: figures/figure_66_B.png  used on input line 920.
-(pdftex.def)             Requested size: 115.09126pt x 83.9179pt.
-File: figures/figure_65_B.png Graphic file (type png)
-<use figures/figure_65_B.png>
-Package pdftex.def Info: figures/figure_65_B.png  used on input line 923.
-(pdftex.def)             Requested size: 115.09126pt x 88.63023pt.
-File: figures/figure_66_B.png Graphic file (type png)
-<use figures/figure_66_B.png>
-Package pdftex.def Info: figures/figure_66_B.png  used on input line 926.
-(pdftex.def)             Requested size: 115.09126pt x 83.9179pt.
-<figures/figure_65_A.png, id=252, 440.39531pt x 341.40047pt>
-File: figures/figure_65_A.png Graphic file (type png)
-<use figures/figure_65_A.png>
-Package pdftex.def Info: figures/figure_65_A.png  used on input line 940.
-(pdftex.def)             Requested size: 146.34824pt x 113.4491pt.
-File: figures/figure_65_B.png Graphic file (type png)
-<use figures/figure_65_B.png>
-Package pdftex.def Info: figures/figure_65_B.png  used on input line 941.
-(pdftex.def)             Requested size: 146.34824pt x 112.69861pt.
-<figures/figure_65_C.png, id=253, 440.39531pt x 339.14203pt>
-File: figures/figure_65_C.png Graphic file (type png)
-<use figures/figure_65_C.png>
-Package pdftex.def Info: figures/figure_65_C.png  used on input line 942.
-(pdftex.def)             Requested size: 146.34824pt x 112.69861pt.
-<figures/figure_66_A.png, id=254, 433.62pt x 316.18124pt>
-File: figures/figure_66_A.png Graphic file (type png)
-<use figures/figure_66_A.png>
-Package pdftex.def Info: figures/figure_66_A.png  used on input line 944.
-(pdftex.def)             Requested size: 146.34824pt x 106.71379pt.
-File: figures/figure_66_B.png Graphic file (type png)
-<use figures/figure_66_B.png>
-Package pdftex.def Info: figures/figure_66_B.png  used on input line 945.
-(pdftex.def)             Requested size: 146.34824pt x 106.71379pt.
-<figures/figure_66_C.png, id=255, 433.62pt x 316.18124pt>
-File: figures/figure_66_C.png Graphic file (type png)
-<use figures/figure_66_C.png>
-Package pdftex.def Info: figures/figure_66_C.png  used on input line 946.
-(pdftex.def)             Requested size: 146.34824pt x 106.71379pt.
-<figures/figure_74_A.png, id=256, 440.39531pt x 339.14203pt>
-File: figures/figure_74_A.png Graphic file (type png)
-<use figures/figure_74_A.png>
-Package pdftex.def Info: figures/figure_74_A.png  used on input line 965.
-(pdftex.def)             Requested size: 146.34824pt x 112.69861pt.
-<figures/figure_74_B.png, id=257, 440.39531pt x 339.14203pt>
+<figures/figure_74_B.png, id=281, 440.39531pt x 339.14203pt>
 File: figures/figure_74_B.png Graphic file (type png)
 <use figures/figure_74_B.png>
-Package pdftex.def Info: figures/figure_74_B.png  used on input line 966.
-(pdftex.def)             Requested size: 146.34824pt x 112.69861pt.
-<figures/figure_74_C.png, id=258, 440.39531pt x 339.14203pt>
-File: figures/figure_74_C.png Graphic file (type png)
-<use figures/figure_74_C.png>
-Package pdftex.def Info: figures/figure_74_C.png  used on input line 967.
-(pdftex.def)             Requested size: 146.34824pt x 112.69861pt.
-<figures/figure_75_A.png, id=259, 440.39531pt x 316.18124pt>
-File: figures/figure_75_A.png Graphic file (type png)
-<use figures/figure_75_A.png>
-Package pdftex.def Info: figures/figure_75_A.png  used on input line 969.
-(pdftex.def)             Requested size: 146.34824pt x 105.06863pt.
-<figures/figure_75_B.png, id=260, 440.39531pt x 316.18124pt>
+Package pdftex.def Info: figures/figure_74_B.png  used on input line 713.
+(pdftex.def)             Requested size: 115.09126pt x 88.63023pt.
+<figures/figure_75_B.png, id=282, 440.39531pt x 316.18124pt>
 File: figures/figure_75_B.png Graphic file (type png)
 <use figures/figure_75_B.png>
-Package pdftex.def Info: figures/figure_75_B.png  used on input line 970.
-(pdftex.def)             Requested size: 146.34824pt x 105.06863pt.
-<figures/figure_75_C.png, id=261, 440.39531pt x 316.18124pt>
-File: figures/figure_75_C.png Graphic file (type png)
-<use figures/figure_75_C.png>
-Package pdftex.def Info: figures/figure_75_C.png  used on input line 971.
-(pdftex.def)             Requested size: 146.34824pt x 105.06863pt.
+Package pdftex.def Info: figures/figure_75_B.png  used on input line 716.
+(pdftex.def)             Requested size: 115.09126pt x 82.62973pt.
+File: figures/figure_65_B.png Graphic file (type png)
+<use figures/figure_65_B.png>
+Package pdftex.def Info: figures/figure_65_B.png  used on input line 724.
+(pdftex.def)             Requested size: 115.09126pt x 88.63023pt.
+File: figures/figure_66_B.png Graphic file (type png)
+<use figures/figure_66_B.png>
+Package pdftex.def Info: figures/figure_66_B.png  used on input line 727.
+(pdftex.def)             Requested size: 115.09126pt x 83.9179pt.
+File: figures/figure_74_B.png Graphic file (type png)
+<use figures/figure_74_B.png>
+Package pdftex.def Info: figures/figure_74_B.png  used on input line 730.
+(pdftex.def)             Requested size: 115.09126pt x 88.63023pt.
+File: figures/figure_75_B.png Graphic file (type png)
+<use figures/figure_75_B.png>
+Package pdftex.def Info: figures/figure_75_B.png  used on input line 733.
+(pdftex.def)             Requested size: 115.09126pt x 82.62973pt.
 
 Underfull \vbox (badness 7704) has occurred while \output is active []
 
 
 
-[10 <./figures/figure_62_B.png> <./figures/figure_71_B.png> <./figures/figure_63_B.png> <./figures/figure_72_B.png> <./figures/figure_64_B.png> <./figures/figure_73_B.png>]
+[9 <./figures/figure_62_B.png> <./figures/figure_71_B.png> <./figures/figure_63_B.png> <./figures/figure_72_B.png> <./figures/figure_64_B.png> <./figures/figure_73_B.png>]
 
-<figures/figure_55_B.png, id=272, 481.8pt x 361.35pt>
+<figures/figure_55_B.png, id=294, 481.8pt x 361.35pt>
 File: figures/figure_55_B.png Graphic file (type png)
 <use figures/figure_55_B.png>
-Package pdftex.def Info: figures/figure_55_B.png  used on input line 1089.
+Package pdftex.def Info: figures/figure_55_B.png  used on input line 896.
 (pdftex.def)             Requested size: 115.09126pt x 86.31775pt.
-<figures/figure_80.png, id=273, 481.8pt x 361.35pt>
+<figures/figure_80.png, id=295, 481.8pt x 361.35pt>
 File: figures/figure_80.png Graphic file (type png)
 <use figures/figure_80.png>
-Package pdftex.def Info: figures/figure_80.png  used on input line 1092.
+Package pdftex.def Info: figures/figure_80.png  used on input line 899.
 (pdftex.def)             Requested size: 115.09126pt x 86.31775pt.
-
-
-[11 <./figures/figure_65_B.png> <./figures/figure_66_B.png>] [12 <./figures/figure_65_A.png> <./figures/figure_65_C.png> <./figures/figure_66_A.png> <./figures/figure_66_C.png> <./figures/figure_74_A.png> <./figures/figure_74_B.png> <./figures/figure_74_C.png> <./figures/figure_75_A.png> <./figures/figure_75_B.png> <./figures/figure_75_C.png>]
-
-
-Overfull \hbox (13.52222pt too wide) in paragraph at lines 1188--1188
-[]\OT1/pcr/m/n/9 dvips -Ppdf -tletter -G0 -o paper.ps paper.dvi[] 
- []
-
-
-
-[13 <./figures/figure_55_B.png> <./figures/figure_80.png>]
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: OT1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
-
-Underfull \hbox (badness 1371) in paragraph at lines 1222--1225
-\OT1/ptm/m/n/10 (+20) oth-ers) is han-dled au-to-mat-i-cally by sim-ply chang-ing
- []
-
-
-Underfull \hbox (badness 1755) in paragraph at lines 1279--1286
-\OT1/ptm/m/n/10 (+20) must not ap-pear. If you are us-ing L[]T[]X and the
- []
-
-
-Underfull \vbox (badness 1762) has occurred while \output is active []
-
-
-
-LaTeX Font Info:    Font shape `OML/ptm/m/n' in size <10> not available
-(Font)              Font shape `OML/cmm/m/it' tried instead on input line 1327.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[14]
-Underfull \hbox (badness 1189) in paragraph at lines 1330--1334
-[]\OT1/ptm/m/n/10 (+20) A sam-ple file with au-thor names is in-cluded in the
- []
-
-
-Underfull \hbox (badness 1460) in paragraph at lines 1337--1344
-[]\OT1/ptm/m/n/10 (+20) The pa-per ab-stract should be-gin in the left col-umn,
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-<icml_numpapers.pdf, id=316, 495.8525pt x 392.46625pt>
-File: icml_numpapers.pdf Graphic file (type pdf)
-<use icml_numpapers.pdf>
-Package pdftex.def Info: icml_numpapers.pdf  used on input line 1387.
-(pdftex.def)             Requested size: 234.8775pt x 185.90239pt.
-
-
-[15 <./icml_numpapers.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-
-
-[16]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
 (./example_paper.bbl
 
-[17]
+[10 <./figures/figure_65_B.png> <./figures/figure_66_B.png> <./figures/figure_74_B.png> <./figures/figure_75_B.png> <./figures/figure_55_B.png> <./figures/figure_80.png>]
 
 )
 
-[18]
+[11]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 
-[19
+[12
 
 ]
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
+[13]
 
+[14]
 
-[20]
-Underfull \vbox (badness 5681) has occurred while \output is active []
+[15]
 
-
-
-[21]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-
-[22]
-
-[23]
-
-[24]
-
-[25] (./example_paper.aux)
+[16] (./example_paper.aux)
  ***********
 LaTeX2e <2024-11-01>
 L3 programming layer <2024-10-09>
  ***********
-
-
-LaTeX Warning: There were multiply-defined labels.
-
 Package rerunfilecheck Info: File `example_paper.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 28722 strings out of 473382
- 535055 string characters out of 5718141
- 944784 words of memory out of 5000000
- 50747 multiletter control sequences out of 15000+600000
- 614031 words of font info for 359 fonts, out of 8000000 for 9000
+ 28436 strings out of 473382
+ 530548 string characters out of 5718141
+ 946002 words of memory out of 5000000
+ 50610 multiletter control sequences out of 15000+600000
+ 601717 words of font info for 291 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  99i,20n,101p,1055b,758s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrb8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on example_paper.pdf (25 pages, 2265487 bytes).
+<c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmbsy7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmmib7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmb8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmr8a.pfb><c:/Program Files/texlive/2024/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on example_paper.pdf (16 pages, 1663636 bytes).
 PDF statistics:
- 653 PDF objects out of 1000 (max. 8388607)
- 519 compressed objects within 6 object streams
- 192 named destinations out of 1000 (max. 500000)
- 84116 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 532 PDF objects out of 1000 (max. 8388607)
+ 427 compressed objects within 5 object streams
+ 136 named destinations out of 1000 (max. 500000)
+ 63591 words of extra memory for PDF output out of 74296 (max. 10000000)
 

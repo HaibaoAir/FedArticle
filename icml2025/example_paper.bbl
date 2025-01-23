@@ -1,23 +1,14 @@
-\begin{thebibliography}{22}
+\begin{thebibliography}{16}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Author(2021)]{anonymous}
-Author, N.~N.
-\newblock Suppressed for anonymity, 2021.
-
 \bibitem[Ding et~al.(2020)Ding, Fang, and Huang]{ding2020optimal}
 Ding, N., Fang, Z., and Huang, J.
 \newblock Optimal contract design for efficient federated learning with multi-dimensional private information.
 \newblock \emph{IEEE Journal on Selected Areas in Communications}, 39\penalty0 (1):\penalty0 186--200, 2020.
-
-\bibitem[Duda et~al.(2000)Duda, Hart, and Stork]{DudaHart2nd}
-Duda, R.~O., Hart, P.~E., and Stork, D.~G.
-\newblock \emph{Pattern Classification}.
-\newblock John Wiley and Sons, 2nd edition, 2000.
 
 \bibitem[Fang et~al.(2021)Fang, Wang, Xu, Yang, and Quek]{fang2021computing}
 Fang, M., Wang, X., Xu, C., Yang, H.~H., and Quek, T.~Q.
@@ -39,11 +30,6 @@ Kang, J., Xiong, Z., Niyato, D., Xie, S., and Zhang, J.
 \newblock Incentive mechanism for reliable federated learning: A joint optimization approach to combining reputation and contract theory.
 \newblock \emph{IEEE Internet of Things Journal}, 6\penalty0 (6):\penalty0 10700--10714, 2019.
 
-\bibitem[Kearns(1989)]{kearns89}
-Kearns, M.~J.
-\newblock \emph{Computational Complexity of Machine Learning}.
-\newblock PhD thesis, Department of Computer Science, Harvard University, 1989.
-
 \bibitem[Langley(2000)]{langley00}
 Langley, P.
 \newblock Crafting papers on machine learning.
@@ -53,26 +39,6 @@ Langley, P.
 Lim, W. Y.~B., Xiong, Z., Miao, C., Niyato, D., Yang, Q., Leung, C., and Poor, H.~V.
 \newblock Hierarchical incentive mechanism design for federated machine learning in mobile networks.
 \newblock \emph{IEEE Internet of Things Journal}, 7\penalty0 (10):\penalty0 9575--9588, 2020.
-
-\bibitem[Michalski et~al.(1983)Michalski, Carbonell, and Mitchell]{MachineLearningI}
-Michalski, R.~S., Carbonell, J.~G., and Mitchell, T.~M. (eds.).
-\newblock \emph{Machine Learning: An Artificial Intelligence Approach, Vol. I}.
-\newblock Tioga, Palo Alto, CA, 1983.
-
-\bibitem[Mitchell(1980)]{mitchell80}
-Mitchell, T.~M.
-\newblock The need for biases in learning generalizations.
-\newblock Technical report, Computer Science Department, Rutgers University, New Brunswick, MA, 1980.
-
-\bibitem[Newell \& Rosenbloom(1981)Newell and Rosenbloom]{Newell81}
-Newell, A. and Rosenbloom, P.~S.
-\newblock Mechanisms of skill acquisition and the law of practice.
-\newblock In Anderson, J.~R. (ed.), \emph{Cognitive Skills and Their Acquisition}, chapter~1, pp.\  1--51. Lawrence Erlbaum Associates, Inc., Hillsdale, NJ, 1981.
-
-\bibitem[Samuel(1959)]{Samuel59}
-Samuel, A.~L.
-\newblock Some studies in machine learning using the game of checkers.
-\newblock \emph{IBM Journal of Research and Development}, 3\penalty0 (3):\penalty0 211--229, 1959.
 
 \bibitem[Tripathi \& Modiano(2021)Tripathi and Modiano]{tripathi2021age}
 Tripathi, V. and Modiano, E.
@@ -93,6 +59,11 @@ Wang, X. and Duan, L.
 Wang, Z., Gao, L., and Huang, J.
 \newblock Taming time-varying information asymmetry in fresh status acquisition.
 \newblock In \emph{IEEE INFOCOM 2021-IEEE Conference on Computer Communications}, pp.\  1--10. IEEE, 2021.
+
+\bibitem[Wei et~al.(2020)Wei, Li, Ding, Ma, Yang, Farokhi, Jin, Quek, and Poor]{wei2020federated}
+Wei, K., Li, J., Ding, M., Ma, C., Yang, H.~H., Farokhi, F., Jin, S., Quek, T.~Q., and Poor, H.~V.
+\newblock Federated learning with differential privacy: Algorithms and performance analysis.
+\newblock \emph{IEEE transactions on information forensics and security}, 15:\penalty0 3454--3469, 2020.
 
 \bibitem[Wu et~al.(2023)Wu, Xiao, Wu, Xu, Zhou, and Sun]{wu2023towards}
 Wu, C., Xiao, M., Wu, J., Xu, Y., Zhou, J., and Sun, H.
